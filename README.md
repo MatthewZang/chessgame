@@ -19,6 +19,8 @@ A browser-based chess game implemented in JavaScript.
 - HTML
 - CSS
 - JavaScript
+## Remember
+- 2 players!
 
 ## Live Demo
 [Play the game](https://your-username.github.io/chess-game) 
