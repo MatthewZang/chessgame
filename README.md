@@ -37,5 +37,5 @@ A browser-based chess game implemented in JavaScript.
 - search what they look like.
 - kill the king to win the game
 
-## Live Demo
-[Play the game](https://your-username.github.io/chess-game) 
+## playing game
+https://matthewzang.github.io/chessgame/
