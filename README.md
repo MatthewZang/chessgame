@@ -23,10 +23,10 @@ A browser-based chess game implemented in JavaScript.
 - 2 players!
 - there are 1 king
 - there are 1 queen
-- there are 8 rooks
+- there are 2 rooks
 - there are 2 bishops
 - there are 2 knignts
-- there are 2 pawns
+- there are 8 pawns
 ## rules
 - King - Moves one square in any direction.
 - Queen - Moves any number of squares diagonally, horizontally, or vertically.
