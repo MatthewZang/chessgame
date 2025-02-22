@@ -21,6 +21,14 @@ A browser-based chess game implemented in JavaScript.
 - JavaScript
 ## Remember
 - 2 players!
+## rules
+King - Moves one square in any direction.
+Queen - Moves any number of squares diagonally, horizontally, or vertically.
+Rook - Moves any number of squares horizontally or vertically.
+Bishop - Moves any number of squares diagonally.
+Knight - Moves in an ‘L-shape,’ two squares in a straight direction, and then one square perpendicular to that.
+Pawn - Moves one square forward, but on its first move, it can move two squares forward. It captures diagonally one square forward.
+search what they look like.
 
 ## Live Demo
 [Play the game](https://your-username.github.io/chess-game) 
