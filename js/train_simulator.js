@@ -151,10 +151,12 @@ function moveTrain() {
     const newLeft = currentLeft + (speed / 10) * direction; // Apply direction to movement
     trainElement.style.left = newLeft + 'px';
     
-    distance += Math.abs((speed / 10) * DISTANCE_SCALE); // Use absolute value for distance
+    // Update distance based on direction
+    distance += ((speed / 10) * DISTANCE_SCALE) * direction; // Multiply by direction
     
     // Update map train position (530km total distance)
     const mapPosition = (distance / 530) * 100;
+    // Ensure map position stays between 0-100%
     window.mapTrain.style.left = `${Math.min(100, Math.max(0, mapPosition))}%`;
     
     updateStatus();
