@@ -134,77 +134,80 @@ button:hover {
     z-index: 1000;
 }
 
+/* Base station style that all stations will use */
+.station, .station.vancouver, .station.jasper, .station.pacific-central {
+    position: absolute;
+    bottom: 70px;
+    width: 300px;
+    height: 200px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">\
+        <!-- Platform Base -->\
+        <rect x="0" y="150" width="300" height="20" fill="%23a0a0a0"/>\
+        <!-- Main Building Structure -->\
+        <rect x="30" y="40" width="240" height="110" fill="%23d3d3d3"/>\
+        <!-- Traditional Japanese Roof -->\
+        <path d="M10,40 L150,0 L290,40 L240,50 L150,30 L60,50 Z" fill="%23855E42"/>\
+        <!-- Roof Details -->\
+        <path d="M20,40 L280,40" stroke="%23654321" stroke-width="2"/>\
+        <path d="M60,50 L240,50" stroke="%23654321" stroke-width="2"/>\
+        <!-- Wooden Support Beams -->\
+        <rect x="40" y="40" width="10" height="110" fill="%23855E42"/>\
+        <rect x="250" y="40" width="10" height="110" fill="%23855E42"/>\
+        <!-- Traditional Windows -->\
+        <rect x="60" y="60" width="40" height="40" fill="%23b0c4de"/>\
+        <path d="M60,80 L100,80" stroke="%23855E42" stroke-width="2"/>\
+        <rect x="130" y="60" width="40" height="40" fill="%23b0c4de"/>\
+        <path d="M130,80 L170,80" stroke="%23855E42" stroke-width="2"/>\
+        <rect x="200" y="60" width="40" height="40" fill="%23b0c4de"/>\
+        <path d="M200,80 L240,80" stroke="%23855E42" stroke-width="2"/>\
+        <!-- Sliding Door -->\
+        <rect x="120" y="110" width="60" height="80" fill="%23855E42"/>\
+        <rect x="125" y="115" width="50" height="70" fill="%23D8BFD8"/>\
+        <!-- Decorative Elements -->\
+        <rect x="0" y="150" width="300" height="5" fill="%23666"/>\
+        <!-- Station Sign -->\
+        <rect x="100" y="20" width="100" height="25" fill="%23fff"/>\
+        <!-- Platform Details -->\
+        <rect x="10" y="155" width="280" height="2" fill="%23yellow" stroke="%23000"/>\
+        <!-- Benches -->\
+        <rect x="50" y="160" width="20" height="5" fill="%23855E42"/>\
+        <rect x="140" y="160" width="20" height="5" fill="%23855E42"/>\
+        <rect x="230" y="160" width="20" height="5" fill="%23855E42"/>\
+        <!-- Plants/Decorations -->\
+        <circle cx="30" cy="165" r="5" fill="%23228B22"/>\
+        <circle cx="270" cy="165" r="5" fill="%23228B22"/>\
+    </svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+}
+
+/* Individual station positions and names */
 .station {
+    left: 200px;
+}
+.station::after {
+    content: 'VIA Station';
     position: absolute;
-    bottom: 70px;
-    right: 200px;
-    width: 200px;
-    height: 150px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">\
-        <!-- Station Building -->\
-        <rect x="20" y="50" width="160" height="100" fill="%23d3d3d3"/>\
-        <!-- Roof -->\
-        <path d="M10,50 L100,10 L190,50 Z" fill="%23a9a9a9"/>\
-        <!-- Door -->\
-        <rect x="85" y="90" width="30" height="60" fill="%23696969"/>\
-        <!-- Windows -->\
-        <rect x="35" y="70" width="30" height="30" fill="%23b0c4de"/>\
-        <rect x="135" y="70" width="30" height="30" fill="%23b0c4de"/>\
-        <!-- Station Name -->\
-        <text x="60" y="40" font-family="Arial" font-size="16" fill="%23000">VIA Station</text>\
-    </svg>');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 2;
+    top: 38px;
+    left: 110px;
+    font-family: Arial;
+    font-size: 16px;
+    color: black;
 }
 
-/* Add these styles for the Vancouver station */
-.station.vancouver {
-    position: absolute;
-    bottom: 70px;
-    left: 111000px; /* 1110km * 100px per km */
-    width: 200px;
-    height: 150px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">\
-        <!-- Station Building -->\
-        <rect x="20" y="50" width="160" height="100" fill="%23d3d3d3"/>\
-        <!-- Roof -->\
-        <path d="M10,50 L100,10 L190,50 Z" fill="%23a9a9a9"/>\
-        <!-- Door -->\
-        <rect x="85" y="90" width="30" height="60" fill="%23696969"/>\
-        <!-- Windows -->\
-        <rect x="35" y="70" width="30" height="30" fill="%23b0c4de"/>\
-        <rect x="135" y="70" width="30" height="30" fill="%23b0c4de"/>\
-        <!-- Station Name -->\
-        <text x="45" y="40" font-family="Arial" font-size="16" fill="%23000">Vancouver</text>\
-    </svg>');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 2;
-}
-
-/* Add styles for the Jasper station */
 .station.jasper {
-    position: absolute;
-    bottom: 70px;
-    width: 200px;
-    height: 150px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">\
-        <!-- Station Building -->\
-        <rect x="20" y="50" width="160" height="100" fill="%23d3d3d3"/>\
-        <!-- Roof -->\
-        <path d="M10,50 L100,10 L190,50 Z" fill="%23a9a9a9"/>\
-        <!-- Door -->\
-        <rect x="85" y="90" width="30" height="60" fill="%23696969"/>\
-        <!-- Windows -->\
-        <rect x="35" y="70" width="30" height="30" fill="%23b0c4de"/>\
-        <rect x="135" y="70" width="30" height="30" fill="%23b0c4de"/>\
-        <!-- Station Name -->\
-        <text x="60" y="40" font-family="Arial" font-size="16" fill="%23000">Jasper</text>\
-    </svg>');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 2;
+    left: 16700px;
+}
+.station.jasper::after {
+    content: 'Jasper';
+}
+
+.station.pacific-central {
+    left: 34500px;
+}
+.station.pacific-central::after {
+    content: 'Pacific Central';
 }
 
 .throttle-container {
@@ -249,4 +252,55 @@ button:hover {
 
 .emergency-stop:hover {
     background-color: #cc0000;
+}
+
+/* Add styles for the train map */
+.train-map {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.map-track {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background-color: #666;
+    margin: 28px 0;
+}
+
+.map-station {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -4px);
+}
+
+.map-station::after {
+    content: attr(data-name);
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.map-train {
+    position: absolute;
+    width: 16px;
+    height: 8px;
+    background-color: gold;
+    transform: translate(-50%, -2px);
+    transition: left 0.1s linear;
 } 

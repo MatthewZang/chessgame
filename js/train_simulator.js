@@ -9,6 +9,7 @@ let stationElement;
 let track;
 let platform;
 let vancouverStation;
+let isFirstStart = true;
 
 // Update speed limit constant
 const SPEED_LIMIT = 196; // New speed limit in km/h
@@ -45,17 +46,23 @@ function initializeSimulation() {
     viewportElement.appendChild(platform);
     viewportElement.appendChild(train);
     
-    // Create first station (VIA Station)
+    // Create VIA station (first station)
     stationElement = document.createElement('div');
     stationElement.className = 'station';
-    stationElement.style.left = '200px'; // Position the first station
+    stationElement.style.left = '200px'; // Starting position
     viewportElement.appendChild(stationElement);
     
-    // Create Jasper station (165km from VIA station)
+    // Create Jasper station (165km from VIA)
     const jasperStation = document.createElement('div');
     jasperStation.className = 'station jasper';
     jasperStation.style.left = '16700px'; // 165km * 100px per km
     viewportElement.appendChild(jasperStation);
+    
+    // Create Pacific Central station (345km from VIA)
+    const pacificCentralStation = document.createElement('div');
+    pacificCentralStation.className = 'station pacific-central';
+    pacificCentralStation.style.left = '34500px'; // 345km * 100px per km
+    viewportElement.appendChild(pacificCentralStation);
     
     // Create Vancouver station
     vancouverStation = document.createElement('div');
@@ -78,6 +85,40 @@ function initializeSimulation() {
 
     // Start the movement loop
     trainInterval = setInterval(moveTrain, 50);
+
+    // Create train map
+    const trainMap = document.createElement('div');
+    trainMap.className = 'train-map';
+    
+    const mapTrack = document.createElement('div');
+    mapTrack.className = 'map-track';
+    
+    // Add stations to map
+    const stations = [
+        { name: 'VIA', position: 0 },
+        { name: 'Jasper', position: 41.25 }, // 165km / total distance * 100
+        { name: 'Pacific Central', position: 86.25 } // 345km / total distance * 100
+    ];
+    
+    stations.forEach(station => {
+        const mapStation = document.createElement('div');
+        mapStation.className = 'map-station';
+        mapStation.style.left = `${station.position}%`;
+        mapStation.setAttribute('data-name', station.name);
+        mapTrack.appendChild(mapStation);
+    });
+    
+    // Add train marker
+    const mapTrain = document.createElement('div');
+    mapTrain.className = 'map-train';
+    mapTrain.style.left = '0%';
+    mapTrack.appendChild(mapTrain);
+    
+    trainMap.appendChild(mapTrack);
+    document.body.appendChild(trainMap);
+
+    // Store map train reference
+    window.mapTrain = mapTrain;
 }
 
 // Add new function to handle throttle changes
@@ -91,6 +132,9 @@ function moveTrain() {
     // Gradually adjust speed based on throttle position
     if (speed < targetSpeed) {
         speed = Math.min(targetSpeed, speed + ACCELERATION_RATE);
+        if (speed > 0) {
+            isFirstStart = false;  // Train has started moving
+        }
     } else if (speed > targetSpeed) {
         speed = Math.max(targetSpeed, speed - DECELERATION_RATE);
     }
@@ -100,6 +144,10 @@ function moveTrain() {
     trainElement.style.left = newLeft + 'px';
     
     distance += (speed / 10) * DISTANCE_SCALE;
+    
+    // Update map train position (400km total distance)
+    const mapPosition = (distance / 400) * 100;
+    window.mapTrain.style.left = `${Math.min(100, Math.max(0, mapPosition))}%`;
     
     updateStatus();
     updateViewport();
@@ -227,30 +275,27 @@ function updateViewport() {
 }
 
 function checkStation(trainPosition) {
-    // Check first station
+    // Check stations
     const stationLeft = parseInt(window.getComputedStyle(stationElement).left) || 0;
     const jasperLeft = 16700 * DISTANCE_SCALE; // 165km from start
-    const vancouverLeft = 111000 * DISTANCE_SCALE; // Vancouver position
+    const pacificCentralLeft = 34500 * DISTANCE_SCALE; // 345km from start
     
-    // Check if train is at any station
-    if (Math.abs(trainPosition - stationLeft) < 200) {
-        if (speed === 0) {
+    // Only announce if train is completely stopped (speed === 0) and not at first start
+    if (speed === 0 && !isFirstStart) {
+        // Check if train is at any station
+        if (Math.abs(trainPosition - stationLeft) < 200) {
             announceArrival('VIA Station');
-        }
-    } else if (Math.abs(trainPosition * DISTANCE_SCALE - jasperLeft) < 200) {
-        if (speed === 0) {
+        } else if (Math.abs(trainPosition * DISTANCE_SCALE - jasperLeft) < 200) {
             announceArrival('Jasper');
-        }
-    } else if (Math.abs(trainPosition * DISTANCE_SCALE - vancouverLeft) < 200) {
-        if (speed === 0) {
-            announceArrival('Vancouver');
+        } else if (Math.abs(trainPosition * DISTANCE_SCALE - pacificCentralLeft) < 200) {
+            announceArrival('Pacific Central');
         }
     }
 }
 
 function announceArrival(stationName) {
     const announcement = document.createElement('div');
-    announcement.textContent = `Train has arrived at ${stationName}!`;
+    announcement.textContent = 'You have arrived at a station';  // Generic message for all stations
     announcement.style.position = 'fixed';
     announcement.style.top = '20px';
     announcement.style.left = '50%';
