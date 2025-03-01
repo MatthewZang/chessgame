@@ -102,9 +102,7 @@ body {
 }
 
 #controls {
-    position: absolute; /* Change back to absolute */
-    top: 10px;
-    left: 10px;
+    position: relative;
     z-index: 3;
 }
 
@@ -229,6 +227,22 @@ button:hover {
     border-radius: 10px;
     color: white;
     z-index: 1000;
+    gap: 10px;
+}
+
+.forward-throttle-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    color: white;
+    z-index: 1000;
+    gap: 10px;
 }
 
 .throttle-slider {
@@ -310,4 +324,72 @@ button:hover {
     background-color: gold;
     transform: translate(-50%, -2px);
     transition: left 0.1s linear;
+}
+
+/* Add styles for the welcome message */
+.welcome-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 2000;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-message h2 {
+    color: gold;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.welcome-message p {
+    margin: 10px 0;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.welcome-message button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.welcome-message button:hover {
+    background-color: #45a049;
+}
+
+.direction-switch {
+    margin: 10px 0;
+}
+
+.direction-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.direction-button:hover {
+    background-color: #357abd;
+}
+
+.throttle-value {
+    font-size: 14px;
+    color: #fff;
+    margin: 5px 0;
 } 

@@ -10,6 +10,7 @@ let track;
 let platform;
 let vancouverStation;
 let isFirstStart = true;
+let direction = 1; // 1 for forward, -1 for backward
 
 // Update speed limit constant
 const SPEED_LIMIT = 196; // New speed limit in km/h
@@ -140,17 +141,17 @@ function moveTrain() {
     if (speed < targetSpeed) {
         speed = Math.min(targetSpeed, speed + ACCELERATION_RATE);
         if (speed > 0) {
-            isFirstStart = false;  // Train has started moving
+            isFirstStart = false;
         }
     } else if (speed > targetSpeed) {
         speed = Math.max(targetSpeed, speed - DECELERATION_RATE);
     }
 
     const currentLeft = parseInt(trainElement.style.left) || 0;
-    const newLeft = currentLeft + speed / 10;
+    const newLeft = currentLeft + (speed / 10) * direction; // Apply direction to movement
     trainElement.style.left = newLeft + 'px';
     
-    distance += (speed / 10) * DISTANCE_SCALE;
+    distance += Math.abs((speed / 10) * DISTANCE_SCALE); // Use absolute value for distance
     
     // Update map train position (530km total distance)
     const mapPosition = (distance / 530) * 100;
@@ -164,33 +165,63 @@ function moveTrain() {
 // Replace the old button event listeners with throttle control
 function initializeThrottleControl() {
     const controls = document.getElementById('controls');
-    controls.innerHTML = `
-        <div class="throttle-container">
-            <input type="range" id="throttle" min="0" max="100" value="0" 
-                   orient="vertical" class="throttle-slider">
-            <div class="throttle-label">Throttle: <span id="throttle-value">0</span>%</div>
-            <div class="speed-label">Target Speed: <span id="target-speed">0</span> km/h</div>
-            <button id="emergency-stop" class="emergency-stop">EMERGENCY STOP</button>
-        </div>
+    
+    // Create reverse throttle container
+    const reverseContainer = document.createElement('div');
+    reverseContainer.className = 'throttle-container';
+    reverseContainer.innerHTML = `
+        <div class="throttle-label">Reverse</div>
+        <input type="range" id="reverse-throttle" min="0" max="100" value="0" 
+               orient="vertical" class="throttle-slider">
+        <div class="throttle-value">0%</div>
+        <button id="emergency-stop" class="emergency-stop">EMERGENCY STOP</button>
     `;
+    
+    // Create forward throttle container
+    const forwardContainer = document.createElement('div');
+    forwardContainer.className = 'forward-throttle-container';
+    forwardContainer.innerHTML = `
+        <div class="throttle-label">Forward</div>
+        <input type="range" id="forward-throttle" min="0" max="100" value="0" 
+               orient="vertical" class="throttle-slider">
+        <div class="throttle-value">0%</div>
+        <div class="speed-label">Target Speed: <span id="target-speed">0</span> km/h</div>
+    `;
+    
+    document.body.appendChild(reverseContainer);
+    document.body.appendChild(forwardContainer);
 
-    const throttleSlider = document.getElementById('throttle');
-    const throttleValue = document.getElementById('throttle-value');
+    const forwardThrottle = document.getElementById('forward-throttle');
+    const reverseThrottle = document.getElementById('reverse-throttle');
     const targetSpeedDisplay = document.getElementById('target-speed');
     const emergencyStop = document.getElementById('emergency-stop');
 
-    throttleSlider.addEventListener('input', (e) => {
+    // Forward throttle control
+    forwardThrottle.addEventListener('input', (e) => {
+        if (reverseThrottle.value > 0) reverseThrottle.value = 0;
         const position = parseInt(e.target.value);
+        direction = 1;
         updateThrottle(position);
-        throttleValue.textContent = position;
+        e.target.nextElementSibling.textContent = `${position}%`;
+        targetSpeedDisplay.textContent = Math.round(targetSpeed);
+    });
+
+    // Reverse throttle control
+    reverseThrottle.addEventListener('input', (e) => {
+        if (forwardThrottle.value > 0) forwardThrottle.value = 0;
+        const position = parseInt(e.target.value);
+        direction = -1;
+        updateThrottle(position);
+        e.target.nextElementSibling.textContent = `${position}%`;
         targetSpeedDisplay.textContent = Math.round(targetSpeed);
     });
 
     emergencyStop.addEventListener('click', () => {
-        throttleSlider.value = 0;
+        forwardThrottle.value = 0;
+        reverseThrottle.value = 0;
         updateThrottle(0);
-        throttleValue.textContent = 0;
         targetSpeedDisplay.textContent = 0;
+        document.querySelectorAll('.throttle-value').forEach(el => el.textContent = '0%');
     });
 }
 
