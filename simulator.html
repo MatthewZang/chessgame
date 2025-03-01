@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aircraft Flight Simulator</title>
+    <link rel="stylesheet" href="css/simulator.css">
+</head>
+<body>
+    <div class="simulator-container">
+        <div id="cockpit">
+            <div id="sky"></div>
+            <div id="ground"></div>
+            <div id="aircraft"></div>
+            <div id="runway"></div>
+            <div id="instruments">
+                <div class="instrument">Altitude: <span id="altitude">0</span> ft</div>
+                <div class="instrument">Speed: <span id="speed">0</span> knots</div>
+                <div class="instrument">Heading: <span id="heading">0</span>°</div>
+            </div>
+        </div>
+        <div id="controls">
+            <button id="throttle-up">Increase Throttle ↑</button>
+            <button id="throttle-down">Decrease Throttle ↓</button>
+            <button id="pitch-up">Pitch Up ⇧</button>
+            <button id="pitch-down">Pitch Down ⇩</button>
+            <button id="turn-left">Turn Left ⇦</button>
+            <button id="turn-right">Turn Right ⇨</button>
+        </div>
+    </div>
+    <audio id="engine-sound" src="path/to/engine-sound.mp3" loop></audio>
+    <audio id="landing-gear-sound" src="path/to/landing-gear-sound.mp3"></audio>
+    <script src="js/simulator.js"></script>
+</body>
+</html> 

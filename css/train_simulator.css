@@ -1,0 +1,179 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #87CEEB; /* Sky color */
+    margin: 0;
+    padding: 0;
+}
+
+.simulator-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background-color: #87CEEB; /* Sky color */
+}
+
+.viewport {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: transform 0.1s linear;
+}
+
+#track {
+    position: absolute;
+    bottom: 50px;
+    left: -1000px;
+    width: 120000px; /* Increased to accommodate the Vancouver station */
+    height: 50px;
+    background: #8B4513; /* Brown color for the track */
+}
+
+#train {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 400px; /* Increased width for a longer train */
+    height: 100px; /* Increased height for better proportions */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">\
+        <!-- Main Body -->\
+        <rect width="400" height="100" fill="white"/>\
+        <!-- Black Stripe -->\
+        <rect x="0" y="30" width="400" height="40" fill="black"/>\
+        <!-- Yellow Accent -->\
+        <rect x="0" y="25" width="400" height="5" fill="gold"/>\
+        <!-- Curved Front -->\
+        <path d="M0,20 Q20,20 30,30 L30,70 Q20,80 0,80 Z" fill="navy"/>\
+        <!-- Windows -->\
+        <rect x="40" y="15" width="320" height="20" fill="rgba(135,206,235,0.8)"/>\
+        <!-- VIA Logo -->\
+        <text x="150" y="55" font-family="Arial" font-size="24" fill="gold" font-weight="bold">VIA</text>\
+        <!-- Wheels -->\
+        <circle cx="50" cy="90" r="8" fill="black"/>\
+        <circle cx="150" cy="90" r="8" fill="black"/>\
+        <circle cx="250" cy="90" r="8" fill="black"/>\
+        <circle cx="350" cy="90" r="8" fill="black"/>\
+    </svg>');
+    background-size: cover;
+    transition: left 0.1s linear;
+    z-index: 2;
+}
+
+#platform {
+    position: absolute;
+    bottom: 50px;
+    left: -1000px;
+    width: 120000px; /* Increased to accommodate the Vancouver station */
+    height: 20px;
+    background: #A9A9A9;
+    border-top: 2px solid #555;
+    z-index: 1;
+}
+
+#controls {
+    position: absolute; /* Change back to absolute */
+    top: 10px;
+    left: 10px;
+    z-index: 3;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#status {
+    position: absolute; /* Change back to absolute */
+    top: 10px;
+    right: 10px;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 3;
+}
+
+.station {
+    position: absolute;
+    bottom: 70px;
+    right: 200px;
+    width: 200px;
+    height: 150px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">\
+        <!-- Station Building -->\
+        <rect x="20" y="50" width="160" height="100" fill="%23d3d3d3"/>\
+        <!-- Roof -->\
+        <path d="M10,50 L100,10 L190,50 Z" fill="%23a9a9a9"/>\
+        <!-- Door -->\
+        <rect x="85" y="90" width="30" height="60" fill="%23696969"/>\
+        <!-- Windows -->\
+        <rect x="35" y="70" width="30" height="30" fill="%23b0c4de"/>\
+        <rect x="135" y="70" width="30" height="30" fill="%23b0c4de"/>\
+        <!-- Station Name -->\
+        <text x="60" y="40" font-family="Arial" font-size="16" fill="%23000">VIA Station</text>\
+    </svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+}
+
+/* Add these styles for the Vancouver station */
+.station.vancouver {
+    position: absolute;
+    bottom: 70px;
+    left: 111000px; /* 1110km * 100px per km */
+    width: 200px;
+    height: 150px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">\
+        <!-- Station Building -->\
+        <rect x="20" y="50" width="160" height="100" fill="%23d3d3d3"/>\
+        <!-- Roof -->\
+        <path d="M10,50 L100,10 L190,50 Z" fill="%23a9a9a9"/>\
+        <!-- Door -->\
+        <rect x="85" y="90" width="30" height="60" fill="%23696969"/>\
+        <!-- Windows -->\
+        <rect x="35" y="70" width="30" height="30" fill="%23b0c4de"/>\
+        <rect x="135" y="70" width="30" height="30" fill="%23b0c4de"/>\
+        <!-- Station Name -->\
+        <text x="45" y="40" font-family="Arial" font-size="16" fill="%23000">Vancouver</text>\
+    </svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+}
+
+/* Add styles for the Jasper station */
+.station.jasper {
+    position: absolute;
+    bottom: 70px;
+    width: 200px;
+    height: 150px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">\
+        <!-- Station Building -->\
+        <rect x="20" y="50" width="160" height="100" fill="%23d3d3d3"/>\
+        <!-- Roof -->\
+        <path d="M10,50 L100,10 L190,50 Z" fill="%23a9a9a9"/>\
+        <!-- Door -->\
+        <rect x="85" y="90" width="30" height="60" fill="%23696969"/>\
+        <!-- Windows -->\
+        <rect x="35" y="70" width="30" height="30" fill="%23b0c4de"/>\
+        <rect x="135" y="70" width="30" height="30" fill="%23b0c4de"/>\
+        <!-- Station Name -->\
+        <text x="60" y="40" font-family="Arial" font-size="16" fill="%23000">Jasper</text>\
+    </svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+} 
