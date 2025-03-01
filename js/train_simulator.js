@@ -13,7 +13,7 @@ let isFirstStart = true;
 let direction = 1; // 1 for forward, -1 for backward
 
 // Update speed limit constant
-const SPEED_LIMIT = 196; // New speed limit in km/h
+const SPEED_LIMIT = 221; // Changed from 196 to 221 km/h
 const ACCELERATION_RATE = 0.5; // How quickly the train accelerates
 const DECELERATION_RATE = 0.3; // How quickly the train slows down
 const DISTANCE_SCALE = 0.01;
@@ -109,10 +109,10 @@ function initializeSimulation() {
     // Add stations to map
     const stations = [
         { name: 'VIA', position: 0 },
-        { name: 'Jasper', position: 31.13 }, // 165km / 530km * 100
-        { name: 'Pacific Central', position: 65.09 }, // 345km / 530km * 100
-        { name: 'Kamloops', position: 100 }, // 530km / 530km * 100
-        { name: 'Union', position: 139.62 } // 740km / 530km * 100
+        { name: 'Jasper', position: 22.3 },      // 165km / 740km * 100
+        { name: 'Pacific Central', position: 46.6 }, // 345km / 740km * 100
+        { name: 'Kamloops', position: 71.6 },    // 530km / 740km * 100
+        { name: 'Union', position: 100 }         // 740km / 740km * 100
     ];
     
     stations.forEach(station => {
@@ -170,8 +170,8 @@ function moveTrain() {
     // Update distance based on direction
     distance += ((speed / 10) * DISTANCE_SCALE) * direction; // Multiply by direction
     
-    // Update map train position (530km total distance)
-    const mapPosition = (distance / 530) * 100;
+    // Update map train position (now using 740km as total distance)
+    const mapPosition = (distance / 740) * 100;
     // Ensure map position stays between 0-100%
     window.mapTrain.style.left = `${Math.min(100, Math.max(0, mapPosition))}%`;
     
