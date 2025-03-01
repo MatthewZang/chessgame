@@ -59,15 +59,35 @@ body {
             </linearGradient>\
         </defs>\
         <!-- Main Body -->\
-        <rect x="30" width="370" height="100" fill="url(%23bodyGradient)"/>\
+        <rect x="0" width="370" height="100" fill="url(%23bodyGradient)"/>\
         <!-- Bottom Frame -->\
-        <rect x="30" y="85" width="370" height="15" fill="%23333"/>\
+        <rect x="0" y="85" width="370" height="15" fill="%23333"/>\
         <!-- Yellow Stripe -->\
-        <path d="M30,30 L400,30 L400,70 L30,70 Z" fill="url(%23yellowStripe)"/>\
-        <!-- New Curved Front Design based on sketch -->\
-        <path d="M0,50 C0,20 15,15 30,15 L30,85 C15,85 0,80 0,50 Z" fill="%23222"/>\
-        <!-- VIA Rail Maple Leaf Logo - More detailed version -->\
-        <g transform="translate(320,25) scale(0.8)">\
+        <path d="M0,30 L370,30 L370,70 L0,70 Z" fill="url(%23yellowStripe)"/>\
+        <!-- New Curved Front Design based on sketch (now on right side) -->\
+        <path d="M370,50 C370,20 385,15 400,15 L400,85 C385,85 370,80 370,50 Z" fill="%23222"/>\
+        <!-- Windows (adjusted positions) -->\
+        <rect x="50" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
+        <rect x="130" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
+        <rect x="210" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
+        <rect x="290" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
+        <!-- VIA Logo (adjusted position) -->\
+        <text x="55" y="57" font-family="Arial" font-size="24" fill="%23222" font-weight="bold" style="filter: drop-shadow(1px 1px 1px %23fff)">VIA</text>\
+        <!-- Headlights (now on right side) -->\
+        <circle cx="390" cy="35" r="4" fill="%23fff"/>\
+        <circle cx="390" cy="65" r="4" fill="%23fff"/>\
+        <!-- Wheels (adjusted positions) -->\
+        <circle cx="50" cy="90" r="8" fill="%23333"/>\
+        <circle cx="150" cy="90" r="8" fill="%23333"/>\
+        <circle cx="250" cy="90" r="8" fill="%23333"/>\
+        <circle cx="350" cy="90" r="8" fill="%23333"/>\
+        <!-- Door Lines (adjusted positions) -->\
+        <path d="M110,40 L110,70" stroke="%23333" stroke-width="1"/>\
+        <path d="M190,40 L190,70" stroke="%23333" stroke-width="1"/>\
+        <path d="M270,40 L270,70" stroke="%23333" stroke-width="1"/>\
+        <path d="M350,40 L350,70" stroke="%23333" stroke-width="1"/>\
+        <!-- VIA Rail Maple Leaf Logo (adjusted position) -->\
+        <g transform="translate(20,25) scale(0.8)">\
             <!-- Red Maple Leaf with more detail -->\
             <path d="M60,0 L65,5 L70,0 L75,5 L80,0 L85,5 L90,0\
                      L85,10 L80,8 L75,12 L70,8 L65,12 L60,8 L55,12\
@@ -86,26 +106,6 @@ body {
             <path d="M50,12 L70,12" stroke="%23222" stroke-width="1.5"/>\
             <path d="M45,10 L75,10" stroke="%23222" stroke-width="1.5"/>\
         </g>\
-        <!-- Windows -->\
-        <rect x="40" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="120" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="200" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="280" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <!-- VIA Logo - moved to yellow stripe and made larger -->\
-        <text x="45" y="57" font-family="Arial" font-size="24" fill="%23222" font-weight="bold" style="filter: drop-shadow(1px 1px 1px %23fff)">VIA</text>\
-        <!-- Headlights -->\
-        <circle cx="10" cy="35" r="4" fill="%23fff"/>\
-        <circle cx="10" cy="65" r="4" fill="%23fff"/>\
-        <!-- Wheels -->\
-        <circle cx="50" cy="90" r="8" fill="%23333"/>\
-        <circle cx="150" cy="90" r="8" fill="%23333"/>\
-        <circle cx="250" cy="90" r="8" fill="%23333"/>\
-        <circle cx="350" cy="90" r="8" fill="%23333"/>\
-        <!-- Door Lines -->\
-        <path d="M100,40 L100,70" stroke="%23333" stroke-width="1"/>\
-        <path d="M180,40 L180,70" stroke="%23333" stroke-width="1"/>\
-        <path d="M260,40 L260,70" stroke="%23333" stroke-width="1"/>\
-        <path d="M340,40 L340,70" stroke="%23333" stroke-width="1"/>\
     </svg>');
     background-size: cover;
     transition: left 0.1s linear;
