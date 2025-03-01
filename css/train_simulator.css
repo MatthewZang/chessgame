@@ -251,6 +251,13 @@ button:hover {
     content: 'Kamloops';
 }
 
+.station.union {
+    left: 74000px;
+}
+.station.union::after {
+    content: 'Union Station';
+}
+
 .throttle-container {
     position: fixed;
     bottom: 20px;
@@ -317,7 +324,7 @@ button:hover {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 400px;
+    width: 500px;
     height: 60px;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 10px;

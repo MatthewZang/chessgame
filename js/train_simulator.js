@@ -77,6 +77,12 @@ function initializeSimulation() {
     kamloopsStation.style.left = '53000px'; // 530km * 100px per km
     viewportElement.appendChild(kamloopsStation);
     
+    // Create Union station (740km from VIA)
+    const unionStation = document.createElement('div');
+    unionStation.className = 'station union';
+    unionStation.style.left = '74000px'; // 740km * 100px per km
+    viewportElement.appendChild(unionStation);
+    
     // Add viewport to container
     container.insertBefore(viewportElement, controls);
     
@@ -105,7 +111,8 @@ function initializeSimulation() {
         { name: 'VIA', position: 0 },
         { name: 'Jasper', position: 31.13 }, // 165km / 530km * 100
         { name: 'Pacific Central', position: 65.09 }, // 345km / 530km * 100
-        { name: 'Kamloops', position: 100 } // 530km / 530km * 100
+        { name: 'Kamloops', position: 100 }, // 530km / 530km * 100
+        { name: 'Union', position: 139.62 } // 740km / 530km * 100
     ];
     
     stations.forEach(station => {
