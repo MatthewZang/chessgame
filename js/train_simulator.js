@@ -70,6 +70,12 @@ function initializeSimulation() {
     vancouverStation.style.left = '111000px'; // 1110km * 100px per km
     viewportElement.appendChild(vancouverStation);
     
+    // Create Kamloops station (530km from VIA)
+    const kamloopsStation = document.createElement('div');
+    kamloopsStation.className = 'station kamloops';
+    kamloopsStation.style.left = '53000px'; // 530km * 100px per km
+    viewportElement.appendChild(kamloopsStation);
+    
     // Add viewport to container
     container.insertBefore(viewportElement, controls);
     
@@ -96,8 +102,9 @@ function initializeSimulation() {
     // Add stations to map
     const stations = [
         { name: 'VIA', position: 0 },
-        { name: 'Jasper', position: 41.25 }, // 165km / total distance * 100
-        { name: 'Pacific Central', position: 86.25 } // 345km / total distance * 100
+        { name: 'Jasper', position: 31.13 }, // 165km / 530km * 100
+        { name: 'Pacific Central', position: 65.09 }, // 345km / 530km * 100
+        { name: 'Kamloops', position: 100 } // 530km / 530km * 100
     ];
     
     stations.forEach(station => {
@@ -145,8 +152,8 @@ function moveTrain() {
     
     distance += (speed / 10) * DISTANCE_SCALE;
     
-    // Update map train position (400km total distance)
-    const mapPosition = (distance / 400) * 100;
+    // Update map train position (530km total distance)
+    const mapPosition = (distance / 530) * 100;
     window.mapTrain.style.left = `${Math.min(100, Math.max(0, mapPosition))}%`;
     
     updateStatus();
@@ -279,6 +286,7 @@ function checkStation(trainPosition) {
     const stationLeft = parseInt(window.getComputedStyle(stationElement).left) || 0;
     const jasperLeft = 16700 * DISTANCE_SCALE; // 165km from start
     const pacificCentralLeft = 34500 * DISTANCE_SCALE; // 345km from start
+    const kamloopsLeft = 53000 * DISTANCE_SCALE; // 530km from start
     
     // Only announce if train is completely stopped (speed === 0) and not at first start
     if (speed === 0 && !isFirstStart) {
@@ -289,6 +297,8 @@ function checkStation(trainPosition) {
             announceArrival('Jasper');
         } else if (Math.abs(trainPosition * DISTANCE_SCALE - pacificCentralLeft) < 200) {
             announceArrival('Pacific Central');
+        } else if (Math.abs(trainPosition * DISTANCE_SCALE - kamloopsLeft) < 200) {
+            announceArrival('Kamloops');
         }
     }
 }

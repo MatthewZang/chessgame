@@ -210,6 +210,13 @@ button:hover {
     content: 'Pacific Central';
 }
 
+.station.kamloops {
+    left: 53000px;
+}
+.station.kamloops::after {
+    content: 'Kamloops';
+}
+
 .throttle-container {
     position: fixed;
     bottom: 20px;
