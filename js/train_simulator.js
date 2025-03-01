@@ -127,6 +127,11 @@ function initializeSimulation() {
 
     // Store map train reference
     window.mapTrain = mapTrain;
+
+    // Add after creating the train in initializeSimulation
+    const carriage = document.createElement('div');
+    carriage.className = 'carriage';
+    viewportElement.appendChild(carriage);
 }
 
 // Add new function to handle throttle changes
@@ -148,8 +153,12 @@ function moveTrain() {
     }
 
     const currentLeft = parseInt(trainElement.style.left) || 0;
-    const newLeft = currentLeft + (speed / 10) * direction; // Apply direction to movement
+    const newLeft = currentLeft + (speed / 10) * direction;
     trainElement.style.left = newLeft + 'px';
+    
+    // Move carriage with the train
+    const carriage = document.querySelector('.carriage');
+    carriage.style.left = (newLeft - 420) + 'px'; // Keep it 420px behind the locomotive
     
     // Update distance based on direction
     distance += ((speed / 10) * DISTANCE_SCALE) * direction; // Multiply by direction
