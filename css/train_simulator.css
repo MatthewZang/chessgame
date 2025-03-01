@@ -169,44 +169,47 @@ button:hover {
 .station, .station.vancouver, .station.jasper, .station.pacific-central {
     position: absolute;
     bottom: 70px;
-    width: 300px;
+    width: 1200px; /* Increased from 800px to 1200px */
     height: 200px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">\
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">\
         <!-- Platform Base -->\
-        <rect x="0" y="150" width="300" height="20" fill="%23a0a0a0"/>\
+        <rect x="0" y="150" width="1200" height="20" fill="%23a0a0a0"/>\
         <!-- Main Building Structure -->\
-        <rect x="30" y="40" width="240" height="110" fill="%23d3d3d3"/>\
+        <rect x="430" y="40" width="340" height="110" fill="%23d3d3d3"/>\
         <!-- Traditional Japanese Roof -->\
-        <path d="M10,40 L150,0 L290,40 L240,50 L150,30 L60,50 Z" fill="%23855E42"/>\
+        <path d="M410,40 L600,0 L790,40 L740,50 L600,30 L460,50 Z" fill="%23855E42"/>\
         <!-- Roof Details -->\
-        <path d="M20,40 L280,40" stroke="%23654321" stroke-width="2"/>\
-        <path d="M60,50 L240,50" stroke="%23654321" stroke-width="2"/>\
+        <path d="M420,40 L780,40" stroke="%23654321" stroke-width="2"/>\
+        <path d="M460,50 L740,50" stroke="%23654321" stroke-width="2"/>\
         <!-- Wooden Support Beams -->\
-        <rect x="40" y="40" width="10" height="110" fill="%23855E42"/>\
-        <rect x="250" y="40" width="10" height="110" fill="%23855E42"/>\
+        <rect x="440" y="40" width="10" height="110" fill="%23855E42"/>\
+        <rect x="750" y="40" width="10" height="110" fill="%23855E42"/>\
         <!-- Traditional Windows -->\
-        <rect x="60" y="60" width="40" height="40" fill="%23b0c4de"/>\
-        <path d="M60,80 L100,80" stroke="%23855E42" stroke-width="2"/>\
-        <rect x="130" y="60" width="40" height="40" fill="%23b0c4de"/>\
-        <path d="M130,80 L170,80" stroke="%23855E42" stroke-width="2"/>\
-        <rect x="200" y="60" width="40" height="40" fill="%23b0c4de"/>\
-        <path d="M200,80 L240,80" stroke="%23855E42" stroke-width="2"/>\
+        <rect x="460" y="60" width="40" height="40" fill="%23b0c4de"/>\
+        <path d="M460,80 L500,80" stroke="%23855E42" stroke-width="2"/>\
+        <rect x="580" y="60" width="40" height="40" fill="%23b0c4de"/>\
+        <path d="M580,80 L620,80" stroke="%23855E42" stroke-width="2"/>\
+        <rect x="700" y="60" width="40" height="40" fill="%23b0c4de"/>\
+        <path d="M700,80 L740,80" stroke="%23855E42" stroke-width="2"/>\
         <!-- Sliding Door -->\
-        <rect x="120" y="110" width="60" height="80" fill="%23855E42"/>\
-        <rect x="125" y="115" width="50" height="70" fill="%23D8BFD8"/>\
+        <rect x="570" y="110" width="60" height="80" fill="%23855E42"/>\
+        <rect x="575" y="115" width="50" height="70" fill="%23D8BFD8"/>\
         <!-- Decorative Elements -->\
-        <rect x="0" y="150" width="300" height="5" fill="%23666"/>\
+        <rect x="0" y="150" width="1200" height="5" fill="%23666"/>\
         <!-- Station Sign -->\
-        <rect x="100" y="20" width="100" height="25" fill="%23fff"/>\
+        <rect x="550" y="20" width="100" height="25" fill="%23fff"/>\
         <!-- Platform Details -->\
-        <rect x="10" y="155" width="280" height="2" fill="%23yellow" stroke="%23000"/>\
+        <rect x="10" y="155" width="1180" height="2" fill="%23yellow" stroke="%23000"/>\
         <!-- Benches -->\
         <rect x="50" y="160" width="20" height="5" fill="%23855E42"/>\
-        <rect x="140" y="160" width="20" height="5" fill="%23855E42"/>\
-        <rect x="230" y="160" width="20" height="5" fill="%23855E42"/>\
+        <rect x="250" y="160" width="20" height="5" fill="%23855E42"/>\
+        <rect x="450" y="160" width="20" height="5" fill="%23855E42"/>\
+        <rect x="650" y="160" width="20" height="5" fill="%23855E42"/>\
+        <rect x="850" y="160" width="20" height="5" fill="%23855E42"/>\
+        <rect x="1050" y="160" width="20" height="5" fill="%23855E42"/>\
         <!-- Plants/Decorations -->\
         <circle cx="30" cy="165" r="5" fill="%23228B22"/>\
-        <circle cx="270" cy="165" r="5" fill="%23228B22"/>\
+        <circle cx="1170" cy="165" r="5" fill="%23228B22"/>\
     </svg>');
     background-size: contain;
     background-repeat: no-repeat;
@@ -221,7 +224,7 @@ button:hover {
     content: 'VIA Station';
     position: absolute;
     top: 38px;
-    left: 110px;
+    left: 560px; /* Adjusted to center with new width */
     font-family: Arial;
     font-size: 16px;
     color: black;
