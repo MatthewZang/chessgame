@@ -201,7 +201,6 @@ function initializeThrottleControl() {
         if (reverseThrottle.value > 0) reverseThrottle.value = 0;
         const position = parseInt(e.target.value);
         direction = 1;
-        updateTrainDirection();
         updateThrottle(position);
         e.target.nextElementSibling.textContent = `${position}%`;
         targetSpeedDisplay.textContent = Math.round(targetSpeed);
@@ -212,7 +211,6 @@ function initializeThrottleControl() {
         if (forwardThrottle.value > 0) forwardThrottle.value = 0;
         const position = parseInt(e.target.value);
         direction = -1;
-        updateTrainDirection();
         updateThrottle(position);
         e.target.nextElementSibling.textContent = `${position}%`;
         targetSpeedDisplay.textContent = Math.round(targetSpeed);
@@ -225,9 +223,6 @@ function initializeThrottleControl() {
         targetSpeedDisplay.textContent = 0;
         document.querySelectorAll('.throttle-value').forEach(el => el.textContent = '0%');
     });
-
-    // Call this at initialization to set initial direction
-    updateTrainDirection();
 }
 
 // Add CSS for the throttle control
@@ -357,15 +352,6 @@ function announceArrival(stationName) {
     setTimeout(() => {
         announcement.remove();
     }, 3000);
-}
-
-// Add this function to handle train direction visually
-function updateTrainDirection() {
-    if (direction === 1) {
-        trainElement.style.transform = 'scaleX(-1)';
-    } else {
-        trainElement.style.transform = 'scaleX(1)';
-    }
 }
 
 // Initialize when the page loads
