@@ -499,4 +499,717 @@ button:hover {
     background-size: cover;
     transition: left 0.1s linear;
     z-index: 2;
+}
+
+/* Realistic locomotive control panel */
+.locomotive-control-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    border: 2px solid #444;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    font-family: 'Arial', sans-serif;
+}
+
+.panel-header {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 10px;
+}
+
+.panel-title {
+    color: #ddd;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.panel-gauges {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.gauge {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gauge-dial {
+    width: 150px;
+    height: 150px;
+    background-color: #222;
+    border-radius: 50%;
+    border: 5px solid #444;
+    position: relative;
+    background-image: conic-gradient(
+        from 135deg,
+        #333 0deg,
+        #333 270deg,
+        #222 270deg,
+        #222 360deg
+    );
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.gauge-dial::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: repeating-conic-gradient(
+        from 135deg,
+        transparent 0deg,
+        transparent 2.7deg,
+        rgba(255, 255, 255, 0.1) 2.7deg,
+        rgba(255, 255, 255, 0.1) 5.4deg
+    );
+    opacity: 0.5;
+}
+
+.gauge-needle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 4px;
+    background-color: #f00;
+    transform-origin: 0% 50%;
+    transform: translateY(-50%) rotate(0deg);
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+    transition: transform 0.2s ease-out;
+    z-index: 2;
+}
+
+.gauge-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #444;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #666;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+.gauge-label {
+    margin-top: 10px;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.gauge-value {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.gauge-unit {
+    color: #888;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.control-stand {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 180px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #555;
+    flex-wrap: wrap;
+}
+
+.throttle-section {
+    width: 180px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.throttle-label {
+    color: #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.throttle-track {
+    width: 80px;
+    height: 130px;
+    background-color: #222;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid #444;
+}
+
+.throttle-notches {
+    position: absolute;
+    right: -60px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.throttle-notch {
+    color: #aaa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.throttle-notch:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.throttle-notch.active {
+    color: #4a90e2;
+    background-color: rgba(74, 144, 226, 0.2);
+}
+
+.throttle-handle {
+    position: absolute;
+    left: 0;
+    top: calc(100% - 30px); /* Position at bottom (IDLE) by default */
+    width: 80px;
+    height: 30px;
+    background: linear-gradient(to bottom, #d00, #900);
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: top 0.1s ease;
+    z-index: 5; /* Ensure it's above the track */
+}
+
+.throttle-handle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(to bottom, #f00, #b00);
+    border-radius: 3px;
+    transform: translate(-50%, -50%);
+}
+
+.direction-section {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.direction-label {
+    color: #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.direction-control {
+    display: flex;
+    flex-direction: column;
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #444;
+}
+
+.direction-option {
+    padding: 15px 20px;
+    color: #aaa;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 1px solid #444;
+}
+
+.direction-option:last-child {
+    border-bottom: none;
+}
+
+.direction-option:hover {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+.direction-option.active {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+.emergency-section {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emergency-button {
+    width: 120px;
+    height: 120px;
+    background-color: #d00;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4), 
+                inset 0 0 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+}
+
+.emergency-button:hover {
+    background-color: #f00;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6),
+                inset 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.emergency-button.pressed {
+    transform: scale(0.95);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.emergency-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    clip-path: polygon(
+        50% 0%, 
+        100% 25%, 
+        100% 75%, 
+        50% 100%, 
+        0% 75%, 
+        0% 25%
+    );
+    margin-bottom: 10px;
+}
+
+.emergency-text {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Add brake control styles */
+.brake-section {
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.brake-label {
+    color: #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.brake-track {
+    width: 80px;
+    height: 130px;
+    background-color: #222;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid #444;
+}
+
+.brake-notches {
+    position: absolute;
+    right: -60px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brake-notch {
+    color: #aaa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.brake-notch:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.brake-notch.active {
+    color: #ff4d4d;
+    background-color: rgba(255, 77, 77, 0.2);
+}
+
+.brake-handle {
+    position: absolute;
+    left: 0;
+    top: 0; /* Position at top (OFF) by default */
+    width: 80px;
+    height: 30px;
+    background: linear-gradient(to bottom, #d44, #922);
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: top 0.1s ease;
+    z-index: 5; /* Ensure it's above the track */
+}
+
+.brake-handle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(to bottom, #f44, #b22);
+    border-radius: 3px;
+    transform: translate(-50%, -50%);
+}
+
+/* Enhanced brake sparks effect */
+.brake-sparks {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 400px;
+    height: 40px; /* Increased height for more dramatic sparks */
+    z-index: 100;
+    pointer-events: none;
+}
+
+.spark {
+    position: absolute;
+    bottom: 0;
+    width: 3px;
+    height: 3px;
+    background-color: #ff9900;
+    border-radius: 50%;
+    box-shadow: 0 0 12px 4px #ff6600; /* Increased glow */
+    animation: spark-fall 0.8s ease-out infinite;
+    transform-origin: center;
+}
+
+@keyframes spark-fall {
+    0% {
+        transform: translateY(-10px) translateX(-2px) scale(1.2) rotate(0deg);
+        opacity: 1;
+    }
+    20% {
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(5px) translateX(-15px) scale(0.8) rotate(45deg);
+    }
+    100% {
+        transform: translateY(25px) translateX(-30px) scale(0.2) rotate(90deg);
+        opacity: 0;
+    }
+}
+
+/* Add a second spark animation for variety */
+.spark:nth-child(even) {
+    animation-name: spark-fall-alt;
+    animation-duration: 0.6s;
+}
+
+@keyframes spark-fall-alt {
+    0% {
+        transform: translateY(-8px) translateX(2px) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    30% {
+        opacity: 0.8;
+    }
+    70% {
+        opacity: 0.6;
+        transform: translateY(10px) translateX(10px) scale(0.6) rotate(-45deg);
+    }
+    100% {
+        transform: translateY(20px) translateX(20px) scale(0.1) rotate(-90deg);
+        opacity: 0;
+    }
+}
+
+/* Adjust control stand to fit brake lever */
+.control-stand {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 180px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #555;
+    flex-wrap: wrap;
+}
+
+/* Adjust throttle section width */
+.throttle-section {
+    width: 180px;
+}
+
+/* Adjust direction section width */
+.direction-section {
+    width: 150px;
+}
+
+/* Adjust emergency section width */
+.emergency-section {
+    width: 150px;
+}
+
+/* Station panel button */
+.station-panel-button {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.station-panel-button:hover {
+    background-color: #34495e;
+}
+
+/* Station services panel */
+.station-services-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    overflow: hidden;
+}
+
+.station-panel-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.station-panel-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.close-panel-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.station-panel-content {
+    padding: 20px;
+}
+
+.station-service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.station-service-item:last-child {
+    border-bottom: none;
+}
+
+.service-info {
+    flex: 1;
+}
+
+.service-info h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.service-info p {
+    margin: 0;
+    color: #555;
+}
+
+.service-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.service-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Fuel level bar */
+.fuel-level-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.fuel-level-fill {
+    height: 100%;
+    background: linear-gradient(to right, #e74c3c, #f39c12, #2ecc71);
+    transition: width 0.5s;
+}
+
+/* Fuel gauge */
+.fuel-gauge {
+    width: 150px;
+    height: 150px;
+}
+
+/* Notification */
+.train-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(44, 62, 80, 0.9);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1100;
+    animation: slide-in 0.5s ease-out;
+}
+
+.train-notification.fade-out {
+    animation: fade-out 0.5s ease-in forwards;
+}
+
+@keyframes slide-in {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Update the station access section in control panel */
+.station-access-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px; /* Reduced from 20px to 10px */
+    width: 100%; /* Match the width of the emergency section */
+}
+
+/* Make the station panel button smaller and positioned under emergency brake */
+.control-stand .station-panel-button {
+    background-color: #e74c3c;
+    width: 120px; /* Reduced width */
+    padding: 8px 12px; /* Smaller padding */
+    font-size: 12px; /* Smaller font */
+    margin-top: 5px; /* Reduced top margin */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Update the emergency section to include the station panel button */
+.emergency-section {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Add a disabled state for the station panel button */
+.control-stand .station-panel-button.disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.control-stand .station-panel-button.disabled:hover {
+    background-color: #7f8c8d;
+    transform: none;
+}
+
+/* Add hover effect for the enabled button */
+.control-stand .station-panel-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+/* Add a semi-transparent overlay behind the panel */
+.station-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1999; /* Just below the panel but above everything else */
+}
+
+/* Ensure the locomotive control panel has a lower z-index */
+.locomotive-control-panel {
+    z-index: 1000;
 } 
