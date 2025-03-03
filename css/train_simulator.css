@@ -40,87 +40,61 @@ body {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">\
         <!-- Gradients Definitions -->\
         <defs>\
-            <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
-                <stop offset="0%" style="stop-color:%23e8e8e8"/>\
-                <stop offset="50%" style="stop-color:%23f5f5f5"/>\
-                <stop offset="100%" style="stop-color:%23e8e8e8"/>\
+            <linearGradient id="silverBody" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23f5f5f5"/>\
+                <stop offset="100%" style="stop-color:%23e0e0e0"/>\
             </linearGradient>\
             <linearGradient id="yellowStripe" x1="0%" y1="0%" x2="0%" y2="100%">\
-                <stop offset="0%" style="stop-color:%23ffd700"/>\
-                <stop offset="100%" style="stop-color:%23ffa500"/>\
+                <stop offset="0%" style="stop-color:%23ffdd00"/>\
+                <stop offset="100%" style="stop-color:%23ffb700"/>\
             </linearGradient>\
-            <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
-                <stop offset="0%" style="stop-color:%23000000"/>\
-                <stop offset="100%" style="stop-color:%23222222"/>\
+            <linearGradient id="windowGlass" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23111a2f"/>\
+                <stop offset="100%" style="stop-color:%23203060"/>\
             </linearGradient>\
-            <linearGradient id="redLeaf">\
-                <stop offset="0%" style="stop-color:%23E31837"/>\
-                <stop offset="100%" style="stop-color:%23C41230"/>\
+            <linearGradient id="darkFront" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23111"/>\
+                <stop offset="100%" style="stop-color:%23000"/>\
             </linearGradient>\
         </defs>\
-        <!-- Main Body -->\
-        <rect x="0" width="370" height="100" fill="url(%23bodyGradient)"/>\
-        <!-- Bottom Frame -->\
-        <rect x="0" y="85" width="370" height="15" fill="%23333"/>\
-        <!-- Yellow Stripe -->\
-        <path d="M0,30 L370,30 L370,70 L0,70 Z" fill="url(%23yellowStripe)"/>\
+        <!-- Main Body (Silver) -->\
+        <rect x="0" y="10" width="320" height="75" fill="url(%23silverBody)"/>\
+        <!-- Black Middle Section -->\
+        <rect x="0" y="30" width="320" height="40" fill="%23111"/>\
+        <!-- Yellow Stripe at Top -->\
+        <rect x="0" y="15" width="320" height="15" fill="url(%23yellowStripe)"/>\
+        <!-- More Triangular Front -->\
+        <path d="M320,10 L400,30 L400,85 L320,85 Z" fill="url(%23darkFront)"/>\
+        <!-- Front Window (smaller) -->\
+        <path d="M335,30 L380,40 L380,70 L335,70 Z" fill="url(%23windowGlass)"/>\
         <!-- Windows -->\
-        <rect x="50" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="130" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="210" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="290" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
+        <rect x="20" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="80" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="140" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="200" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="260" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
         <!-- VIA Logo -->\
-        <text x="55" y="57" font-family="Arial" font-size="24" fill="%23222" font-weight="bold" style="filter: drop-shadow(1px 1px 1px %23fff)">VIA</text>\
-        <!-- New Modern Locomotive Front -->\
-        <path d="M370,15 L385,15 Q400,15 400,30 L400,70 Q400,85 385,85 L370,85 Z" fill="%23222"/>\
-        <!-- Front Grill Details -->\
-        <path d="M385,25 L395,25" stroke="%23333" stroke-width="2"/>\
-        <path d="M385,35 L395,35" stroke="%23333" stroke-width="2"/>\
-        <path d="M385,45 L395,45" stroke="%23333" stroke-width="2"/>\
-        <path d="M385,55 L395,55" stroke="%23333" stroke-width="2"/>\
-        <path d="M385,65 L395,65" stroke="%23333" stroke-width="2"/>\
-        <path d="M385,75 L395,75" stroke="%23333" stroke-width="2"/>\
-        <!-- Front Light Housing -->\
-        <circle cx="390" cy="35" r="6" fill="%23333"/>\
-        <circle cx="390" cy="65" r="6" fill="%23333"/>\
+        <text x="120" y="55" font-family="Arial" font-size="22" fill="%23ffdd00" font-weight="bold">VIA</text>\
         <!-- Headlights -->\
-        <circle cx="390" cy="35" r="4" fill="%23fff"/>\
-        <circle cx="390" cy="65" r="4" fill="%23fff"/>\
-        <!-- Wheels (adjusted positions) -->\
-        <circle cx="50" cy="90" r="8" fill="%23333"/>\
-        <circle cx="150" cy="90" r="8" fill="%23333"/>\
-        <circle cx="250" cy="90" r="8" fill="%23333"/>\
-        <circle cx="350" cy="90" r="8" fill="%23333"/>\
-        <!-- Door Lines (adjusted positions) -->\
-        <path d="M110,40 L110,70" stroke="%23333" stroke-width="1"/>\
-        <path d="M190,40 L190,70" stroke="%23333" stroke-width="1"/>\
-        <path d="M270,40 L270,70" stroke="%23333" stroke-width="1"/>\
-        <path d="M350,40 L350,70" stroke="%23333" stroke-width="1"/>\
-        <!-- VIA Rail Maple Leaf Logo (adjusted position) -->\
-        <g transform="translate(20,25) scale(0.8)">\
-            <!-- Red Maple Leaf with more detail -->\
-            <path d="M60,0 L65,5 L70,0 L75,5 L80,0 L85,5 L90,0\
-                     L85,10 L80,8 L75,12 L70,8 L65,12 L60,8 L55,12\
-                     L50,8 L45,12 L40,8 L35,10 L30,0 L35,5 L40,0\
-                     L45,5 L50,0 L55,5 L60,0" \
-                  fill="url(%23redLeaf)"/>\
-            <!-- Black Base with more detail -->\
-            <path d="M35,15 L85,15" stroke="%23222" stroke-width="8" stroke-linecap="round"/>\
-            <!-- Curved Lines with better spacing -->\
-            <path d="M40,13 C45,8 75,8 80,13" stroke="%23222" stroke-width="2" fill="none"/>\
-            <path d="M45,11 C50,6 70,6 75,11" stroke="%23222" stroke-width="2" fill="none"/>\
-            <!-- Additional curved details -->\
-            <path d="M35,15 C40,20 50,20 60,15 C70,20 80,20 85,15" \
-                  stroke="%23222" stroke-width="3" fill="none"/>\
-            <!-- Small decorative elements -->\
-            <path d="M50,12 L70,12" stroke="%23222" stroke-width="1.5"/>\
-            <path d="M45,10 L75,10" stroke="%23222" stroke-width="1.5"/>\
-        </g>\
+        <circle cx="395" cy="45" r="4" fill="%23fff"/>\
+        <circle cx="395" cy="70" r="4" fill="%23fff"/>\
+        <!-- Undercarriage -->\
+        <rect x="0" y="85" width="400" height="15" fill="%23333"/>\
+        <!-- Door Lines -->\
+        <path d="M65,30 L65,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M125,30 L125,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M185,30 L185,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M245,30 L245,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M305,30 L305,70" stroke="%23aaa" stroke-width="1"/>\
+        <!-- Wheels -->\
+        <circle cx="50" cy="90" r="8" fill="%23222"/>\
+        <circle cx="150" cy="90" r="8" fill="%23222"/>\
+        <circle cx="250" cy="90" r="8" fill="%23222"/>\
+        <circle cx="350" cy="90" r="8" fill="%23222"/>\
     </svg>');
     background-size: cover;
     transition: left 0.1s linear;
     z-index: 2;
-    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
 }
 
 #platform {
@@ -441,55 +415,55 @@ button:hover {
 .carriage {
     position: absolute;
     bottom: 60px;
-    left: -420px; /* Position it behind the locomotive */
+    left: -420px;
     width: 400px;
     height: 100px;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">\
         <!-- Gradients Definitions -->\
         <defs>\
-            <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
-                <stop offset="0%" style="stop-color:%23e8e8e8"/>\
-                <stop offset="50%" style="stop-color:%23f5f5f5"/>\
-                <stop offset="100%" style="stop-color:%23e8e8e8"/>\
+            <linearGradient id="silverBody" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23f5f5f5"/>\
+                <stop offset="100%" style="stop-color:%23e0e0e0"/>\
             </linearGradient>\
             <linearGradient id="yellowStripe" x1="0%" y1="0%" x2="0%" y2="100%">\
-                <stop offset="0%" style="stop-color:%23ffd700"/>\
-                <stop offset="100%" style="stop-color:%23ffa500"/>\
+                <stop offset="0%" style="stop-color:%23ffdd00"/>\
+                <stop offset="100%" style="stop-color:%23ffb700"/>\
             </linearGradient>\
-            <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
-                <stop offset="0%" style="stop-color:%23000000"/>\
-                <stop offset="100%" style="stop-color:%23222222"/>\
+            <linearGradient id="windowGlass" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23111a2f"/>\
+                <stop offset="100%" style="stop-color:%23203060"/>\
             </linearGradient>\
         </defs>\
-        <!-- Main Body (full width) -->\
-        <rect x="0" width="400" height="100" fill="url(%23bodyGradient)"/>\
-        <!-- Bottom Frame -->\
-        <rect x="0" y="85" width="400" height="15" fill="%23333"/>\
-        <!-- Yellow Stripe -->\
-        <path d="M0,30 L400,30 L400,70 L0,70 Z" fill="url(%23yellowStripe)"/>\
-        <!-- Rounded Connector Ends -->\
-        <circle cx="0" cy="50" r="15" fill="%23222"/>\
-        <circle cx="400" cy="50" r="15" fill="%23222"/>\
-        <!-- Connector Details -->\
-        <rect x="-10" y="45" width="20" height="10" fill="%23333"/>\
-        <rect x="390" y="45" width="20" height="10" fill="%23333"/>\
+        <!-- Main Body (Silver) -->\
+        <rect x="0" y="10" width="400" height="75" fill="url(%23silverBody)"/>\
+        <!-- Black Middle Section -->\
+        <rect x="0" y="30" width="400" height="40" fill="%23111"/>\
+        <!-- Yellow Stripe at Top -->\
+        <rect x="0" y="15" width="400" height="15" fill="url(%23yellowStripe)"/>\
+        <!-- Connector Ends -->\
+        <circle cx="0" cy="50" r="8" fill="%23222"/>\
+        <circle cx="400" cy="50" r="8" fill="%23222"/>\
         <!-- Windows -->\
-        <rect x="20" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="120" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="220" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
-        <rect x="320" y="15" width="70" height="35" rx="3" fill="url(%23windowGradient)"/>\
+        <rect x="30" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="95" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="160" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="225" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <rect x="290" y="35" width="45" height="25" fill="url(%23windowGlass)"/>\
+        <!-- Undercarriage -->\
+        <rect x="0" y="85" width="400" height="15" fill="%23333"/>\
         <!-- Door Lines -->\
-        <path d="M95,40 L95,70" stroke="%23333" stroke-width="1"/>\
-        <path d="M195,40 L195,70" stroke="%23333" stroke-width="1"/>\
-        <path d="M295,40 L295,70" stroke="%23333" stroke-width="1"/>\
+        <path d="M75,30 L75,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M140,30 L140,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M205,30 L205,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M270,30 L270,70" stroke="%23aaa" stroke-width="1"/>\
+        <path d="M335,30 L335,70" stroke="%23aaa" stroke-width="1"/>\
         <!-- Wheels -->\
-        <circle cx="50" cy="90" r="8" fill="%23333"/>\
-        <circle cx="150" cy="90" r="8" fill="%23333"/>\
-        <circle cx="250" cy="90" r="8" fill="%23333"/>\
-        <circle cx="350" cy="90" r="8" fill="%23333"/>\
+        <circle cx="50" cy="90" r="8" fill="%23222"/>\
+        <circle cx="150" cy="90" r="8" fill="%23222"/>\
+        <circle cx="250" cy="90" r="8" fill="%23222"/>\
+        <circle cx="350" cy="90" r="8" fill="%23222"/>\
     </svg>');
     background-size: cover;
     transition: left 0.1s linear;
     z-index: 1;
-    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
 } 
