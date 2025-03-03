@@ -170,15 +170,15 @@ button:hover {
 .station, .station.vancouver, .station.jasper, .station.pacific-central {
     position: absolute;
     bottom: 50px;
-    width: 1200px;
+    width: 2000px;
     height: 200px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">\
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 200">\
         <!-- Platform Base -->\
-        <rect x="0" y="150" width="1200" height="20" fill="%23a0a0a0"/>\
+        <rect x="0" y="150" width="2000" height="20" fill="%23a0a0a0"/>\
         <!-- Platform Edge -->\
-        <rect x="0" y="150" width="1200" height="3" fill="%23ffdd00"/>\
+        <rect x="0" y="150" width="2000" height="3" fill="%23ffdd00"/>\
         <!-- Main Building Structure (On Platform) -->\
-        <rect x="430" y="70" width="340" height="80" fill="url(%23buildingGradient)"/>\
+        <rect x="830" y="70" width="340" height="80" fill="url(%23buildingGradient)"/>\
         <defs>\
             <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
                 <stop offset="0%" style="stop-color:%23e8e8e8"/>\
@@ -190,42 +190,42 @@ button:hover {
             </linearGradient>\
             <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
                 <stop offset="0%" style="stop-color:%23b0c4de"/>\
-                <stop offset="100%" style="stop-color:%238da9c4"/>\
+                <stop offset="100%" style="stop-color:%238db0d3"/>\
             </linearGradient>\
         </defs>\
         <!-- Modern Station Roof -->\
-        <path d="M410,70 L600,40 L790,70 L790,80 L410,80 Z" fill="url(%23roofGradient)"/>\
+        <path d="M810,70 L1000,40 L1190,70 L1190,80 L810,80 Z" fill="url(%23roofGradient)"/>\
         <!-- Roof Details -->\
-        <path d="M420,70 L780,70" stroke="%23654321" stroke-width="2"/>\
-        <path d="M420,75 L780,75" stroke="%23654321" stroke-width="1"/>\
+        <path d="M820,70 L1180,70" stroke="%23654321" stroke-width="2"/>\
+        <path d="M820,75 L1180,75" stroke="%23654321" stroke-width="1"/>\
         <!-- Modern Windows -->\
-        <rect x="460" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
-        <rect x="540" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
-        <rect x="620" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
-        <rect x="700" y="90" width="40" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="860" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="940" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="1020" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="1100" y="90" width="40" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
         <!-- Station Sign with Text -->\
-        <rect x="550" y="50" width="100" height="25" rx="3" fill="%23fff" stroke="%23333" stroke-width="1"/>\
-        <text x="600" y="67" font-family="Arial" font-size="14" fill="%23000" text-anchor="middle">VIA Station</text>\
+        <rect x="950" y="50" width="100" height="25" rx="3" fill="%23fff" stroke="%23333" stroke-width="1"/>\
+        <text x="1000" y="67" font-family="Arial" font-size="14" fill="%23000" text-anchor="middle">VIA Station</text>\
         <!-- Platform Details -->\
-        <rect x="10" y="155" width="1180" height="2" fill="%23ffdd00"/>\
+        <rect x="10" y="155" width="1980" height="2" fill="%23ffdd00"/>\
         <!-- Platform Tiles -->\
-        <rect x="0" y="160" width="1200" height="10" fill="%23909090"/>\
+        <rect x="0" y="160" width="2000" height="10" fill="%23909090"/>\
         <!-- Benches -->\
         <rect x="100" y="140" width="40" height="10" rx="2" fill="%23555"/>\
         <rect x="100" y="135" width="40" height="5" rx="1" fill="%23777"/>\
         <rect x="350" y="140" width="40" height="10" rx="2" fill="%23555"/>\
         <rect x="350" y="135" width="40" height="5" rx="1" fill="%23777"/>\
-        <rect x="810" y="140" width="40" height="10" rx="2" fill="%23555"/>\
-        <rect x="810" y="135" width="40" height="5" rx="1" fill="%23777"/>\
-        <rect x="1060" y="140" width="40" height="10" rx="2" fill="%23555"/>\
-        <rect x="1060" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <rect x="1610" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="1610" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <rect x="1860" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="1860" y="135" width="40" height="5" rx="1" fill="%23777"/>\
         <!-- Decorative Elements -->\
         <circle cx="50" cy="140" r="8" fill="%23228B22"/>\
-        <circle cx="1150" cy="140" r="8" fill="%23228B22"/>\
+        <circle cx="1950" cy="140" r="8" fill="%23228B22"/>\
         <rect x="200" y="135" width="5" height="15" fill="%23333"/>\
         <circle cx="202.5" cy="130" r="5" fill="%23ffdd00"/>\
-        <rect x="1000" y="135" width="5" height="15" fill="%23333"/>\
-        <circle cx="1002.5" cy="130" r="5" fill="%23ffdd00"/>\
+        <rect x="1800" y="135" width="5" height="15" fill="%23333"/>\
+        <circle cx="1802.5" cy="130" r="5" fill="%23ffdd00"/>\
     </svg>');
     background-size: contain;
     background-repeat: no-repeat;

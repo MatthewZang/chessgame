@@ -139,6 +139,9 @@ function initializeSimulation() {
     const carriage = document.createElement('div');
     carriage.className = 'carriage';
     viewportElement.appendChild(carriage);
+
+    // After creating carriages, add the rear locomotive
+    addRearLocomotive();
 }
 
 // Add new function to handle throttle changes
@@ -164,20 +167,32 @@ function moveTrain() {
     trainElement.style.left = newLeft + 'px';
     
     // Move carriage with the train
-    const carriage = document.querySelector('.carriage');
-    carriage.style.left = (newLeft - 420) + 'px'; // Keep it 420px behind the locomotive
+    const carriage = document.querySelector('.carriage:not(#rear-locomotive)');
+    if (carriage) {
+        carriage.style.left = (newLeft - 420) + 'px'; // Keep it 420px behind the locomotive
+    }
+    
+    // Move rear locomotive
+    const rearLocomotive = document.getElementById('rear-locomotive');
+    if (rearLocomotive) {
+        rearLocomotive.style.left = (newLeft - 840) + 'px'; // Keep it 840px behind the locomotive (420px behind the carriage)
+    }
     
     // Update distance based on direction
-    distance += ((speed / 10) * DISTANCE_SCALE) * direction; // Multiply by direction
+    distance += ((speed / 10) * DISTANCE_SCALE) * direction;
     
-    // Update map train position (now using 740km as total distance)
-    const mapPosition = (distance / 740) * 100;
-    // Ensure map position stays between 0-100%
-    window.mapTrain.style.left = `${Math.min(100, Math.max(0, mapPosition))}%`;
+    // Update speed and distance display
+    speedElement.textContent = Math.abs(speed).toFixed(2) + ' km/h';
+    distanceElement.textContent = distance.toFixed(2) + ' km';
     
-    updateStatus();
+    // Update viewport
     updateViewport();
+    
+    // Check if at a station
     checkStation(newLeft);
+    
+    // Update throttle display
+    document.getElementById('throttle-value').textContent = `Throttle: ${throttlePosition}%`;
 }
 
 // Replace the old button event listeners with throttle control
@@ -314,63 +329,300 @@ function updateStatus() {
     }
 }
 
+// Modify the updateViewport function to show more of the train
 function updateViewport() {
+    // Get the current train position
     const trainLeft = parseInt(trainElement.style.left) || 0;
-    const windowWidth = window.innerWidth;
-    const trainCenter = trainLeft + (trainElement.offsetWidth / 2);
-    const offset = Math.max(0, trainCenter - (windowWidth / 2));
     
-    // Update viewport position
-    viewportElement.style.transform = `translateX(-${offset}px)`;
+    // Calculate viewport position - show more of the train by shifting the view
+    // This will ensure we can see the rear locomotive
+    const viewportLeft = -trainLeft + window.innerWidth / 3;
     
-    // Check if we need to extend the track (increased the check distance)
-    if (trainLeft > (parseInt(track.style.right) || 1000) - windowWidth) {
-        track.style.right = (parseInt(track.style.right) || 1000) + 2000 + 'px';
-        platform.style.right = track.style.right;
+    // Apply the new position
+    viewportElement.style.transform = `translateX(${viewportLeft}px)`;
+    
+    // Update distance display
+    distance = Math.abs(trainLeft) * DISTANCE_SCALE;
+    distanceElement.textContent = distance.toFixed(2) + ' km';
+    
+    // Update map train position
+    if (window.mapTrain) {
+        const maxDistance = 740; // km
+        const percentPosition = Math.min(100, (distance / maxDistance) * 100);
+        window.mapTrain.style.left = `${percentPosition}%`;
     }
 }
 
+// Modify the checkStation function to account for longer train
 function checkStation(trainPosition) {
-    // Check stations
-    const stationLeft = parseInt(window.getComputedStyle(stationElement).left) || 0;
-    const jasperLeft = 16700 * DISTANCE_SCALE; // 165km from start
-    const pacificCentralLeft = 34500 * DISTANCE_SCALE; // 345km from start
-    const kamloopsLeft = 53000 * DISTANCE_SCALE; // 530km from start
+    // Get all stations
+    const stations = document.querySelectorAll('.station');
     
-    // Only announce if train is completely stopped (speed === 0) and not at first start
-    if (speed === 0 && !isFirstStart) {
-        // Check if train is at any station
-        if (Math.abs(trainPosition - stationLeft) < 200) {
-            announceArrival('VIA Station');
-        } else if (Math.abs(trainPosition * DISTANCE_SCALE - jasperLeft) < 200) {
-            announceArrival('Jasper');
-        } else if (Math.abs(trainPosition * DISTANCE_SCALE - pacificCentralLeft) < 200) {
-            announceArrival('Pacific Central');
-        } else if (Math.abs(trainPosition * DISTANCE_SCALE - kamloopsLeft) < 200) {
-            announceArrival('Kamloops');
+    // Check if train is at any station
+    let atStation = false;
+    let stationName = '';
+    
+    stations.forEach(station => {
+        const stationLeft = parseInt(station.style.left);
+        const stationWidth = 2000; // Match the new station width
+        
+        // Expanded detection range to account for longer train
+        if (Math.abs(trainPosition - stationLeft) < stationWidth / 2) {
+            atStation = true;
+            
+            // Determine station name
+            if (station.classList.contains('vancouver')) {
+                stationName = 'Vancouver';
+            } else if (station.classList.contains('jasper')) {
+                stationName = 'Jasper';
+            } else if (station.classList.contains('pacific-central')) {
+                stationName = 'Pacific Central';
+            } else if (station.classList.contains('kamloops')) {
+                stationName = 'Kamloops';
+            } else if (station.classList.contains('union')) {
+                stationName = 'Union';
+            } else {
+                stationName = 'VIA';
+            }
         }
+    });
+    
+    // Update station arrival message
+    const arrivalMessage = document.getElementById('arrival-message');
+    if (atStation) {
+        arrivalMessage.textContent = `You have arrived at ${stationName} station`;
+        arrivalMessage.style.display = 'block';
+    } else {
+        arrivalMessage.style.display = 'none';
     }
 }
 
-function announceArrival(stationName) {
-    const announcement = document.createElement('div');
-    announcement.textContent = 'You have arrived at a station';  // Generic message for all stations
-    announcement.style.position = 'fixed';
-    announcement.style.top = '20px';
-    announcement.style.left = '50%';
-    announcement.style.transform = 'translateX(-50%)';
-    announcement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-    announcement.style.color = 'white';
-    announcement.style.padding = '10px';
-    announcement.style.borderRadius = '5px';
-    announcement.style.zIndex = '1000';
+// Add this at the beginning of your JavaScript file
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if there's a selected train type in localStorage
+    const selectedTrain = localStorage.getItem('selectedTrain');
     
-    document.body.appendChild(announcement);
+    if (selectedTrain === 'rocky') {
+        // Apply Rocky Mountaineer styling
+        applyRockyMountaineerStyle();
+    }
     
-    setTimeout(() => {
-        announcement.remove();
-    }, 3000);
+    // Initialize the simulator
+    initializeSimulation();
+});
+
+// Function to apply Rocky Mountaineer styling
+function applyRockyMountaineerStyle() {
+    const trainElement = document.getElementById('train');
+    const carriageElements = document.querySelectorAll('.carriage');
+    
+    // Rocky Mountaineer style for locomotive
+    trainElement.style.backgroundImage = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+        <!-- Rocky Mountaineer Train -->
+        <defs>
+            <linearGradient id="rockyBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23003366"/>
+                <stop offset="100%" style="stop-color:%23002244"/>
+            </linearGradient>
+            <linearGradient id="goldStripe" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23FFD700"/>
+                <stop offset="100%" style="stop-color:%23DAA520"/>
+            </linearGradient>
+            <linearGradient id="windowGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23111a2f"/>
+                <stop offset="100%" style="stop-color:%23203060"/>
+            </linearGradient>
+            <linearGradient id="darkFront" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23111"/>
+                <stop offset="100%" style="stop-color:%23000"/>
+            </linearGradient>
+        </defs>
+        <!-- Main Body (Blue) -->
+        <rect x="0" y="10" width="320" height="75" fill="url(%23rockyBody)"/>
+        <!-- Gold Stripe at Middle -->
+        <rect x="0" y="45" width="320" height="10" fill="url(%23goldStripe)"/>
+        <!-- Triangular Front -->
+        <path d="M320,10 L400,30 L400,85 L320,85 Z" fill="url(%23darkFront)"/>
+        <!-- Front Window -->
+        <path d="M335,30 L380,40 L380,70 L335,70 Z" fill="url(%23windowGlass)"/>
+        <!-- Windows -->
+        <rect x="20" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <rect x="80" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <rect x="140" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <rect x="200" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <rect x="260" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <!-- RM Logo -->
+        <text x="120" y="65" font-family="Arial" font-size="18" fill="%23FFD700" font-weight="bold">RM</text>
+        <!-- Wheels -->
+        <circle cx="50" cy="90" r="8" fill="%23222"/>
+        <circle cx="150" cy="90" r="8" fill="%23222"/>
+        <circle cx="250" cy="90" r="8" fill="%23222"/>
+        <circle cx="350" cy="90" r="8" fill="%23222"/>
+    </svg>')`;
+    
+    // Rocky Mountaineer style for carriages
+    carriageElements.forEach(carriage => {
+        carriage.style.backgroundImage = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+            <!-- Rocky Mountaineer Carriage -->
+            <defs>
+                <linearGradient id="rockyBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:%23003366"/>
+                    <stop offset="100%" style="stop-color:%23002244"/>
+                </linearGradient>
+                <linearGradient id="goldStripe" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:%23FFD700"/>
+                    <stop offset="100%" style="stop-color:%23DAA520"/>
+                </linearGradient>
+                <linearGradient id="windowGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:%23111a2f"/>
+                    <stop offset="100%" style="stop-color:%23203060"/>
+                </linearGradient>
+            </defs>
+            <!-- Main Body (Blue) -->
+            <rect x="0" y="10" width="400" height="75" fill="url(%23rockyBody)"/>
+            <!-- Gold Stripe at Middle -->
+            <rect x="0" y="45" width="400" height="10" fill="url(%23goldStripe)"/>
+            <!-- Connector Ends -->
+            <circle cx="0" cy="50" r="8" fill="%23222"/>
+            <circle cx="400" cy="50" r="8" fill="%23222"/>
+            <!-- Windows -->
+            <rect x="30" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+            <rect x="95" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+            <rect x="160" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+            <rect x="225" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+            <rect x="290" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+            <!-- Undercarriage -->
+            <rect x="0" y="85" width="400" height="15" fill="%23333"/>
+            <!-- Wheels -->
+            <circle cx="50" cy="90" r="8" fill="%23222"/>
+            <circle cx="150" cy="90" r="8" fill="%23222"/>
+            <circle cx="250" cy="90" r="8" fill="%23222"/>
+            <circle cx="350" cy="90" r="8" fill="%23222"/>
+        </svg>')`;
+    });
 }
 
-// Initialize when the page loads
-document.addEventListener('DOMContentLoaded', initializeSimulation); 
+// Add this function to create a rear locomotive
+function addRearLocomotive() {
+    // Create rear locomotive element
+    const rearLocomotive = document.createElement('div');
+    rearLocomotive.id = 'rear-locomotive';
+    rearLocomotive.className = 'carriage rear-locomotive';
+    
+    // Set initial position (behind the last carriage)
+    const carriages = document.querySelectorAll('.carriage');
+    const lastCarriageIndex = carriages.length - 1;
+    
+    if (lastCarriageIndex >= 0) {
+        const lastCarriage = carriages[lastCarriageIndex];
+        const lastCarriageLeft = parseInt(lastCarriage.style.left || '-420px');
+        rearLocomotive.style.left = (lastCarriageLeft - 420) + 'px';
+    } else {
+        rearLocomotive.style.left = '-840px'; // Position if no carriages
+    }
+    
+    // Add to viewport
+    viewportElement.appendChild(rearLocomotive);
+    
+    // Apply appropriate styling based on selected train
+    const selectedTrain = localStorage.getItem('selectedTrain');
+    if (selectedTrain === 'rocky') {
+        applyRockyMountaineerRearStyle(rearLocomotive);
+    } else {
+        applyVIARailRearStyle(rearLocomotive);
+    }
+}
+
+// Function to apply VIA Rail styling to rear locomotive
+function applyVIARailRearStyle(rearLocomotive) {
+    rearLocomotive.style.backgroundImage = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+        <!-- VIA Rail Rear Locomotive (Flipped) -->
+        <defs>
+            <linearGradient id="silverBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23f5f5f5"/>
+                <stop offset="100%" style="stop-color:%23e0e0e0"/>
+            </linearGradient>
+            <linearGradient id="yellowStripe" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23ffdd00"/>
+                <stop offset="100%" style="stop-color:%23ffb700"/>
+            </linearGradient>
+            <linearGradient id="windowGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23111a2f"/>
+                <stop offset="100%" style="stop-color:%23203060"/>
+            </linearGradient>
+            <linearGradient id="darkFront" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23111"/>
+                <stop offset="100%" style="stop-color:%23000"/>
+            </linearGradient>
+        </defs>
+        <!-- Main Body (Silver) -->
+        <rect x="80" y="10" width="320" height="75" fill="url(%23silverBody)"/>
+        <!-- Black Middle Section -->
+        <rect x="80" y="30" width="320" height="40" fill="%23111"/>
+        <!-- Yellow Stripe at Top -->
+        <rect x="80" y="15" width="320" height="15" fill="url(%23yellowStripe)"/>
+        <!-- More Triangular Front (Flipped) -->
+        <path d="M80,10 L0,30 L0,85 L80,85 Z" fill="url(%23darkFront)"/>
+        <!-- Front Window (smaller, flipped) -->
+        <path d="M65,30 L20,40 L20,70 L65,70 Z" fill="url(%23windowGlass)"/>
+        <!-- Windows -->
+        <rect x="95" y="35" width="45" height="25" fill="url(%23windowGlass)"/>
+        <rect x="155" y="35" width="45" height="25" fill="url(%23windowGlass)"/>
+        <rect x="215" y="35" width="45" height="25" fill="url(%23windowGlass)"/>
+        <rect x="275" y="35" width="45" height="25" fill="url(%23windowGlass)"/>
+        <rect x="335" y="35" width="45" height="25" fill="url(%23windowGlass)"/>
+        <!-- VIA Logo -->
+        <text x="280" y="55" font-family="Arial" font-size="22" fill="%23ffdd00" font-weight="bold">VIA</text>
+        <!-- Wheels -->
+        <circle cx="50" cy="90" r="8" fill="%23222"/>
+        <circle cx="150" cy="90" r="8" fill="%23222"/>
+        <circle cx="250" cy="90" r="8" fill="%23222"/>
+        <circle cx="350" cy="90" r="8" fill="%23222"/>
+    </svg>')`;
+}
+
+// Function to apply Rocky Mountaineer styling to rear locomotive
+function applyRockyMountaineerRearStyle(rearLocomotive) {
+    rearLocomotive.style.backgroundImage = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+        <!-- Rocky Mountaineer Rear Locomotive (Flipped) -->
+        <defs>
+            <linearGradient id="rockyBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23003366"/>
+                <stop offset="100%" style="stop-color:%23002244"/>
+            </linearGradient>
+            <linearGradient id="goldStripe" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23FFD700"/>
+                <stop offset="100%" style="stop-color:%23DAA520"/>
+            </linearGradient>
+            <linearGradient id="windowGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23111a2f"/>
+                <stop offset="100%" style="stop-color:%23203060"/>
+            </linearGradient>
+            <linearGradient id="darkFront" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:%23111"/>
+                <stop offset="100%" style="stop-color:%23000"/>
+            </linearGradient>
+        </defs>
+        <!-- Main Body (Blue) -->
+        <rect x="80" y="10" width="320" height="75" fill="url(%23rockyBody)"/>
+        <!-- Gold Stripe at Middle -->
+        <rect x="80" y="45" width="320" height="10" fill="url(%23goldStripe)"/>
+        <!-- Triangular Front (Flipped) -->
+        <path d="M80,10 L0,30 L0,85 L80,85 Z" fill="url(%23darkFront)"/>
+        <!-- Front Window (Flipped) -->
+        <path d="M65,30 L20,40 L20,70 L65,70 Z" fill="url(%23windowGlass)"/>
+        <!-- Windows -->
+        <rect x="95" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <rect x="155" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <rect x="215" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <rect x="275" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <rect x="335" y="20" width="45" height="20" fill="url(%23windowGlass)"/>
+        <!-- RM Logo -->
+        <text x="280" y="65" font-family="Arial" font-size="18" fill="%23FFD700" font-weight="bold">RM</text>
+        <!-- Wheels -->
+        <circle cx="50" cy="90" r="8" fill="%23222"/>
+        <circle cx="150" cy="90" r="8" fill="%23222"/>
+        <circle cx="250" cy="90" r="8" fill="%23222"/>
+        <circle cx="350" cy="90" r="8" fill="%23222"/>
+    </svg>')`;
+} 

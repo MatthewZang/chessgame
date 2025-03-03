@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Train Simulator</title>
+    <title>Canadian Train Simulator</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/train_simulator.css">
     <style>
-        /* Start Screen Overlay */
-        #start-overlay {
+        /* Start Screen Styles */
+        #start-screen {
             position: fixed;
             top: 0;
             left: 0;
@@ -44,7 +43,7 @@
             margin-bottom: 30px;
         }
 
-        #start-button {
+        #play-button {
             background-color: #4CAF50;
             color: white;
             padding: 15px 40px;
@@ -55,18 +54,18 @@
             transition: background-color 0.3s;
         }
 
-        #start-button:hover {
+        #play-button:hover {
             background-color: #45a049;
         }
 
-        /* Train Selection Overlay */
-        #train-selection-overlay {
+        /* Train Selection Screen */
+        #train-selection {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(135, 206, 235, 0.9);
+            background-color: #87CEEB;
             z-index: 9998;
             display: none;
             justify-content: center;
@@ -139,17 +138,17 @@
     </style>
 </head>
 <body>
-    <!-- Start Screen Overlay -->
-    <div id="start-overlay">
+    <!-- Start Screen -->
+    <div id="start-screen">
         <div class="start-container">
             <h1>Canadian Train Simulator</h1>
             <p>Experience the beauty of Canada by train</p>
-            <button id="start-button">START GAME</button>
+            <button id="play-button">PLAY</button>
         </div>
     </div>
 
-    <!-- Train Selection Overlay -->
-    <div id="train-selection-overlay">
+    <!-- Train Selection Screen -->
+    <div id="train-selection">
         <div class="selection-container">
             <h2>Select Your Train</h2>
             <div class="train-options">
@@ -169,23 +168,18 @@
         </div>
     </div>
 
-    <!-- Your existing simulator content goes here -->
-    <div class="simulator-container">
-        <!-- Existing content will be preserved -->
-    </div>
-
     <script>
-        // Add this script to handle the start screen and train selection
         document.addEventListener('DOMContentLoaded', function() {
-            const startOverlay = document.getElementById('start-overlay');
-            const startButton = document.getElementById('start-button');
-            const trainSelectionOverlay = document.getElementById('train-selection-overlay');
+            // Get elements
+            const startScreen = document.getElementById('start-screen');
+            const playButton = document.getElementById('play-button');
+            const trainSelection = document.getElementById('train-selection');
             const selectTrainButtons = document.querySelectorAll('.select-train-btn');
             
-            // Start button click handler
-            startButton.addEventListener('click', function() {
-                startOverlay.style.display = 'none';
-                trainSelectionOverlay.style.display = 'flex';
+            // Play button click handler
+            playButton.addEventListener('click', function() {
+                startScreen.style.display = 'none';
+                trainSelection.style.display = 'flex';
             });
             
             // Train selection buttons click handler
@@ -194,14 +188,11 @@
                     const trainType = this.getAttribute('data-train');
                     // Store the selection in localStorage
                     localStorage.setItem('selectedTrain', trainType);
-                    // Hide the selection overlay and start the game
-                    trainSelectionOverlay.style.display = 'none';
+                    // Redirect to the main simulator
+                    window.location.href = 'index.html';
                 });
             });
         });
     </script>
-
-    <!-- Include your existing JavaScript file -->
-    <script src="js/train_simulator.js"></script>
 </body>
-</html>
+</html> 
