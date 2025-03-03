@@ -26,9 +26,25 @@ body {
     position: absolute;
     bottom: 50px;
     left: -1000px;
-    width: 120000px; /* Increased to accommodate the Vancouver station */
-    height: 50px;
-    background: #8B4513; /* Brown color for the track */
+    width: 120000px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20">\
+        <!-- Track Base -->\
+        <rect x="0" y="0" width="100" height="20" fill="%23555"/>\
+        <!-- Sleepers/Ties -->\
+        <rect x="0" y="8" width="10" height="4" fill="%23654321"/>\
+        <rect x="15" y="8" width="10" height="4" fill="%23654321"/>\
+        <rect x="30" y="8" width="10" height="4" fill="%23654321"/>\
+        <rect x="45" y="8" width="10" height="4" fill="%23654321"/>\
+        <rect x="60" y="8" width="10" height="4" fill="%23654321"/>\
+        <rect x="75" y="8" width="10" height="4" fill="%23654321"/>\
+        <rect x="90" y="8" width="10" height="4" fill="%23654321"/>\
+        <!-- Rails -->\
+        <rect x="0" y="5" width="100" height="2" fill="%23888"/>\
+        <rect x="0" y="13" width="100" height="2" fill="%23888"/>\
+    </svg>');
+    background-repeat: repeat-x;
+    z-index: 1;
 }
 
 #train {
@@ -94,17 +110,28 @@ body {
     </svg>');
     background-size: cover;
     transition: left 0.1s linear;
-    z-index: 2;
+    z-index: 3;
 }
 
 #platform {
     position: absolute;
     bottom: 50px;
     left: -1000px;
-    width: 120000px; /* Increased to accommodate the Vancouver station */
-    height: 20px;
-    background: #A9A9A9;
-    border-top: 2px solid #555;
+    width: 120000px;
+    height: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30">\
+        <!-- Platform Base -->\
+        <rect x="0" y="0" width="100" height="30" fill="%23a0a0a0"/>\
+        <!-- Platform Edge -->\
+        <rect x="0" y="0" width="100" height="3" fill="%23ffdd00"/>\
+        <!-- Platform Tiles -->\
+        <rect x="0" y="5" width="20" height="20" fill="%23909090"/>\
+        <rect x="20" y="5" width="20" height="20" fill="%23989898"/>\
+        <rect x="40" y="5" width="20" height="20" fill="%23909090"/>\
+        <rect x="60" y="5" width="20" height="20" fill="%23989898"/>\
+        <rect x="80" y="5" width="20" height="20" fill="%23909090"/>\
+    </svg>');
+    background-repeat: repeat-x;
     z-index: 1;
 }
 
@@ -142,94 +169,100 @@ button:hover {
 /* Base station style that all stations will use */
 .station, .station.vancouver, .station.jasper, .station.pacific-central {
     position: absolute;
-    bottom: 70px;
-    width: 1200px; /* Increased from 800px to 1200px */
+    bottom: 50px;
+    width: 1200px;
     height: 200px;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200">\
         <!-- Platform Base -->\
         <rect x="0" y="150" width="1200" height="20" fill="%23a0a0a0"/>\
-        <!-- Main Building Structure -->\
-        <rect x="430" y="40" width="340" height="110" fill="%23d3d3d3"/>\
-        <!-- Traditional Japanese Roof -->\
-        <path d="M410,40 L600,0 L790,40 L740,50 L600,30 L460,50 Z" fill="%23855E42"/>\
+        <!-- Platform Edge -->\
+        <rect x="0" y="150" width="1200" height="3" fill="%23ffdd00"/>\
+        <!-- Main Building Structure (On Platform) -->\
+        <rect x="430" y="70" width="340" height="80" fill="url(%23buildingGradient)"/>\
+        <defs>\
+            <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23e8e8e8"/>\
+                <stop offset="100%" style="stop-color:%23c0c0c0"/>\
+            </linearGradient>\
+            <linearGradient id="roofGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23855E42"/>\
+                <stop offset="100%" style="stop-color:%23654321"/>\
+            </linearGradient>\
+            <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">\
+                <stop offset="0%" style="stop-color:%23b0c4de"/>\
+                <stop offset="100%" style="stop-color:%238da9c4"/>\
+            </linearGradient>\
+        </defs>\
+        <!-- Modern Station Roof -->\
+        <path d="M410,70 L600,40 L790,70 L790,80 L410,80 Z" fill="url(%23roofGradient)"/>\
         <!-- Roof Details -->\
-        <path d="M420,40 L780,40" stroke="%23654321" stroke-width="2"/>\
-        <path d="M460,50 L740,50" stroke="%23654321" stroke-width="2"/>\
-        <!-- Wooden Support Beams -->\
-        <rect x="440" y="40" width="10" height="110" fill="%23855E42"/>\
-        <rect x="750" y="40" width="10" height="110" fill="%23855E42"/>\
-        <!-- Traditional Windows -->\
-        <rect x="460" y="60" width="40" height="40" fill="%23b0c4de"/>\
-        <path d="M460,80 L500,80" stroke="%23855E42" stroke-width="2"/>\
-        <rect x="580" y="60" width="40" height="40" fill="%23b0c4de"/>\
-        <path d="M580,80 L620,80" stroke="%23855E42" stroke-width="2"/>\
-        <rect x="700" y="60" width="40" height="40" fill="%23b0c4de"/>\
-        <path d="M700,80 L740,80" stroke="%23855E42" stroke-width="2"/>\
-        <!-- Sliding Door -->\
-        <rect x="570" y="110" width="60" height="80" fill="%23855E42"/>\
-        <rect x="575" y="115" width="50" height="70" fill="%23D8BFD8"/>\
-        <!-- Decorative Elements -->\
-        <rect x="0" y="150" width="1200" height="5" fill="%23666"/>\
-        <!-- Station Sign -->\
-        <rect x="550" y="20" width="100" height="25" fill="%23fff"/>\
+        <path d="M420,70 L780,70" stroke="%23654321" stroke-width="2"/>\
+        <path d="M420,75 L780,75" stroke="%23654321" stroke-width="1"/>\
+        <!-- Modern Windows -->\
+        <rect x="460" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="540" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="620" y="90" width="60" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <rect x="700" y="90" width="40" height="40" rx="2" fill="url(%23windowGradient)" stroke="%23fff" stroke-width="2"/>\
+        <!-- Station Sign with Text -->\
+        <rect x="550" y="50" width="100" height="25" rx="3" fill="%23fff" stroke="%23333" stroke-width="1"/>\
+        <text x="600" y="67" font-family="Arial" font-size="14" fill="%23000" text-anchor="middle">VIA Station</text>\
         <!-- Platform Details -->\
-        <rect x="10" y="155" width="1180" height="2" fill="%23yellow" stroke="%23000"/>\
+        <rect x="10" y="155" width="1180" height="2" fill="%23ffdd00"/>\
+        <!-- Platform Tiles -->\
+        <rect x="0" y="160" width="1200" height="10" fill="%23909090"/>\
         <!-- Benches -->\
-        <rect x="50" y="160" width="20" height="5" fill="%23855E42"/>\
-        <rect x="250" y="160" width="20" height="5" fill="%23855E42"/>\
-        <rect x="450" y="160" width="20" height="5" fill="%23855E42"/>\
-        <rect x="650" y="160" width="20" height="5" fill="%23855E42"/>\
-        <rect x="850" y="160" width="20" height="5" fill="%23855E42"/>\
-        <rect x="1050" y="160" width="20" height="5" fill="%23855E42"/>\
-        <!-- Plants/Decorations -->\
-        <circle cx="30" cy="165" r="5" fill="%23228B22"/>\
-        <circle cx="1170" cy="165" r="5" fill="%23228B22"/>\
+        <rect x="100" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="100" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <rect x="350" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="350" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <rect x="810" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="810" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <rect x="1060" y="140" width="40" height="10" rx="2" fill="%23555"/>\
+        <rect x="1060" y="135" width="40" height="5" rx="1" fill="%23777"/>\
+        <!-- Decorative Elements -->\
+        <circle cx="50" cy="140" r="8" fill="%23228B22"/>\
+        <circle cx="1150" cy="140" r="8" fill="%23228B22"/>\
+        <rect x="200" y="135" width="5" height="15" fill="%23333"/>\
+        <circle cx="202.5" cy="130" r="5" fill="%23ffdd00"/>\
+        <rect x="1000" y="135" width="5" height="15" fill="%23333"/>\
+        <circle cx="1002.5" cy="130" r="5" fill="%23ffdd00"/>\
     </svg>');
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: 2;
+    z-index: 1;
 }
 
 /* Individual station positions and names */
 .station {
     left: 200px;
 }
-.station::after {
-    content: 'VIA Station';
-    position: absolute;
-    top: 38px;
-    left: 560px; /* Adjusted to center with new width */
-    font-family: Arial;
-    font-size: 16px;
-    color: black;
-}
 
 .station.jasper {
     left: 16700px;
 }
 .station.jasper::after {
-    content: 'Jasper';
+    display: none;
 }
 
 .station.pacific-central {
     left: 34500px;
 }
 .station.pacific-central::after {
-    content: 'Pacific Central';
+    display: none;
 }
 
 .station.kamloops {
     left: 53000px;
 }
 .station.kamloops::after {
-    content: 'Kamloops';
+    display: none;
 }
 
 .station.union {
     left: 74000px;
 }
 .station.union::after {
-    content: 'Union Station';
+    display: none;
 }
 
 .throttle-container {
@@ -465,5 +498,5 @@ button:hover {
     </svg>');
     background-size: cover;
     transition: left 0.1s linear;
-    z-index: 1;
+    z-index: 2;
 } 
