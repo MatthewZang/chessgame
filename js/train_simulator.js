@@ -977,43 +977,38 @@ function swapLocomotiveAppearance(isReverse) {
     }
 }
 
-// Update the moveTrain function to correctly update the map position
+// Update the moveTrain function to consistently update all speed displays
 function moveTrain() {
-    // Apply acceleration/deceleration based on target speed with much faster changes
+    // Apply acceleration/deceleration based on target speed
     if (Math.abs(speed) < Math.abs(targetSpeed)) {
-        // Accelerating - much faster
         if (targetSpeed > 0) {
-            // Apply a smaller acceleration rate for higher speeds, but with minimal reduction
-            const currentAcceleration = ACCELERATION_RATE * (1 - (Math.abs(speed) / SPEED_LIMIT) * 0.1); // Reduced factor from 0.2 to 0.1
+            const currentAcceleration = ACCELERATION_RATE * (1 - (Math.abs(speed) / SPEED_LIMIT) * 0.1);
             speed = Math.min(targetSpeed, speed + currentAcceleration);
         } else if (targetSpeed < 0) {
-            // Apply a smaller acceleration rate for higher speeds, but with minimal reduction
-            const currentAcceleration = ACCELERATION_RATE * (1 - (Math.abs(speed) / SPEED_LIMIT) * 0.1); // Reduced factor from 0.2 to 0.1
+            const currentAcceleration = ACCELERATION_RATE * (1 - (Math.abs(speed) / SPEED_LIMIT) * 0.1);
             speed = Math.max(targetSpeed, speed - currentAcceleration);
         }
     } else if (Math.abs(speed) > Math.abs(targetSpeed)) {
-        // Decelerating - faster
         if (speed > targetSpeed) {
             speed = Math.max(targetSpeed, speed - DECELERATION_RATE);
         } else if (speed < targetSpeed) {
             speed = Math.min(targetSpeed, speed + DECELERATION_RATE);
         }
     }
-    
-    // Update train position with a much faster movement scale
+
+    // Update train position
     const trainLeft = parseFloat(trainElement.style.left || '0');
     trainElement.style.left = (trainLeft + (speed * MOVEMENT_SCALE)) + 'px';
-    
+
     // Update carriage positions
     updateCarriagePositions(speed);
-    
+
     // Update viewport
     updateViewport();
-    
-    // Update only speed display with more accurate values
-    // Convert to integer to avoid decimal fluctuations
-    speedElement.textContent = Math.abs(Math.round(speed));
-    
+
+    // Centralize speed display updates
+    updateSpeedDisplays();
+
     // Update map train position based on train's actual position
     if (window.mapTrain) {
         // Define station positions in pixels
@@ -1084,6 +1079,29 @@ function moveTrain() {
             }
             stationPanelButton.title = 'Station services only available when at a station';
         }
+    }
+}
+
+// Add new function to update all speed displays consistently
+function updateSpeedDisplays() {
+    const currentSpeedKmh = Math.abs(Math.round(speed));
+    
+    // Update control stand speed display
+    if (speedElement) {
+        speedElement.textContent = currentSpeedKmh.toFixed(2);
+    }
+
+    // Update top-right speed display
+    const topSpeedDisplay = document.querySelector('.speed-gauge .gauge-value');
+    if (topSpeedDisplay) {
+        topSpeedDisplay.textContent = currentSpeedKmh.toFixed(2);
+    }
+
+    // Update speed needle
+    const speedNeedle = document.getElementById('speed-needle');
+    if (speedNeedle) {
+        const speedAngle = Math.min(270, (currentSpeedKmh / SPEED_LIMIT) * 270);
+        speedNeedle.style.transform = `rotate(${speedAngle}deg)`;
     }
 }
 
