@@ -977,7 +977,7 @@ function swapLocomotiveAppearance(isReverse) {
     }
 }
 
-// Modify moveTrain to handle gradual speed changes
+// Update the moveTrain function to correctly update the map position
 function moveTrain() {
     // Apply acceleration/deceleration based on target speed with much faster changes
     if (Math.abs(speed) < Math.abs(targetSpeed)) {
@@ -1014,12 +1014,60 @@ function moveTrain() {
     // Convert to integer to avoid decimal fluctuations
     speedElement.textContent = Math.abs(Math.round(speed));
     
-    // Update map train position based on train's left position instead of distance
+    // Update map train position based on train's actual position
     if (window.mapTrain) {
-        // Calculate map position based on train's left position
-        // Assuming 100,000px of track represents the full journey
-        const mapPosition = Math.min(100, (Math.abs(trainLeft) / 100000) * 100);
-        window.mapTrain.style.left = `${mapPosition}%`;
+        // Define station positions in pixels
+        const stationPositions = [
+            { name: 'VIA', position: 200 },
+            { name: 'Jasper', position: 16700 },
+            { name: 'Pacific Central', position: 34500 },
+            { name: 'Kamloops', position: 53000 },
+            { name: 'Union', position: 74000 }
+        ];
+        
+        // Calculate map position based on actual train position relative to stations
+        // Total track length in pixels
+        const totalTrackLength = 74000; // Union station position
+        
+        // Calculate percentage of journey completed
+        const journeyPercentage = Math.min(100, Math.max(0, (trainLeft / totalTrackLength) * 100));
+        
+        // Update map train position
+        window.mapTrain.style.left = `${journeyPercentage}%`;
+        
+        // Update map train tooltip to show current position
+        let currentLocation = "On the rail";
+        
+        // Check if at a station
+        const stationStatus = checkIfAtStation(trainLeft);
+        if (stationStatus.atStation) {
+            currentLocation = `At ${stationStatus.stationName} Station`;
+        } else {
+            // Find nearest stations
+            let prevStation = { name: "Start", position: 0 };
+            let nextStation = { name: "End", position: totalTrackLength };
+            
+            for (let i = 0; i < stationPositions.length; i++) {
+                if (trainLeft >= stationPositions[i].position) {
+                    prevStation = stationPositions[i];
+                } else {
+                    nextStation = stationPositions[i];
+                    break;
+                }
+            }
+            
+            // Calculate distance to next station
+            const distanceToNext = nextStation.position - trainLeft;
+            const distanceFromPrev = trainLeft - prevStation.position;
+            
+            if (distanceToNext < distanceFromPrev) {
+                currentLocation = `${Math.round(distanceToNext / 100) / 10} km to ${nextStation.name}`;
+            } else {
+                currentLocation = `${Math.round(distanceFromPrev / 100) / 10} km from ${prevStation.name}`;
+            }
+        }
+        
+        window.mapTrain.setAttribute('title', currentLocation);
     }
     
     // Check if at station and update button state
@@ -1112,7 +1160,7 @@ function updateViewport() {
     }
 }
 
-// Function to show station panel
+// Function to show station panel with station-specific information
 function showStationPanel(stationName) {
     // Remove any existing panel
     const existingPanel = document.getElementById('station-services-panel');
@@ -1120,10 +1168,18 @@ function showStationPanel(stationName) {
         existingPanel.remove();
     }
     
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'station-panel-overlay';
+    document.body.appendChild(overlay);
+    
     // Create station services panel
     const panel = document.createElement('div');
     panel.id = 'station-services-panel';
     panel.className = 'station-services-panel';
+    
+    // Get station-specific information
+    const stationInfo = getStationInfo(stationName);
     
     panel.innerHTML = `
         <div class="station-panel-header">
@@ -1131,6 +1187,10 @@ function showStationPanel(stationName) {
             <button id="close-station-panel" class="close-panel-btn">×</button>
         </div>
         <div class="station-panel-content">
+            <div class="station-info">
+                <p>${stationInfo.description}</p>
+            </div>
+            
             <div class="station-service-item">
                 <div class="service-info">
                     <h3>Fuel Status</h3>
@@ -1158,6 +1218,7 @@ function showStationPanel(stationName) {
     // Add event listeners to buttons
     document.getElementById('close-station-panel').addEventListener('click', () => {
         panel.remove();
+        overlay.remove();
     });
     
     document.getElementById('refuel-btn').addEventListener('click', () => {
@@ -1177,6 +1238,38 @@ function showStationPanel(stationName) {
         fuelFill.style.width = `${currentFuel}%`;
         fuelText.textContent = `Current fuel: ${Math.round(currentFuel)}%`;
     }
+}
+
+// Function to get station-specific information
+function getStationInfo(stationName) {
+    const stationInfoMap = {
+        'VIA': {
+            description: 'Welcome to VIA Station! This is the starting point of your journey. The station offers full refueling and supply services.',
+            fuelPrice: 1.0 // Base price
+        },
+        'Jasper': {
+            description: 'Jasper Station is located in the beautiful Jasper National Park. The station offers premium services with a view of the Rocky Mountains.',
+            fuelPrice: 1.2 // 20% more expensive
+        },
+        'Pacific Central': {
+            description: 'Pacific Central Station is a major transportation hub. The station offers comprehensive services for all train types.',
+            fuelPrice: 1.1 // 10% more expensive
+        },
+        'Kamloops': {
+            description: 'Kamloops Station is a scenic stop in British Columbia. The station offers standard refueling and supply services.',
+            fuelPrice: 1.15 // 15% more expensive
+        },
+        'Union': {
+            description: 'Union Station is the final destination of your journey. The station offers premium services and maintenance facilities.',
+            fuelPrice: 1.25 // 25% more expensive
+        }
+    };
+    
+    // Return default info if station not found
+    return stationInfoMap[stationName] || {
+        description: `Welcome to ${stationName} Station! This station offers standard refueling and supply services.`,
+        fuelPrice: 1.0
+    };
 }
 
 // Function to refuel the train

@@ -325,16 +325,16 @@ button:hover {
     background-color: #cc0000;
 }
 
-/* Add styles for the train map */
+/* Improve the train map display */
 .train-map {
     position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 500px;
+    bottom: 20px;
+    left: 20px;
+    width: 300px;
     height: 60px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     padding: 10px;
     z-index: 1000;
 }
@@ -342,18 +342,21 @@ button:hover {
 .map-track {
     position: relative;
     width: 100%;
-    height: 4px;
-    background-color: #666;
-    margin: 28px 0;
+    height: 8px;
+    background-color: #555;
+    border-radius: 4px;
+    margin-top: 20px;
 }
 
 .map-station {
     position: absolute;
     width: 12px;
     height: 12px;
-    background-color: #fff;
+    background-color: #2c3e50;
     border-radius: 50%;
-    transform: translate(-50%, -4px);
+    top: -2px;
+    transform: translateX(-6px);
+    cursor: pointer;
 }
 
 .map-station::after {
@@ -362,18 +365,33 @@ button:hover {
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    color: white;
-    font-size: 12px;
+    font-size: 10px;
     white-space: nowrap;
+    color: #333;
 }
 
 .map-train {
     position: absolute;
     width: 16px;
-    height: 8px;
-    background-color: gold;
-    transform: translate(-50%, -2px);
-    transition: left 0.1s linear;
+    height: 16px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+    top: -4px;
+    transform: translateX(-8px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease-out;
+    cursor: help;
+}
+
+/* Add a title to the map */
+.train-map::before {
+    content: 'Train Location';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
 }
 
 /* Add styles for the welcome message */
@@ -1028,12 +1046,19 @@ button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
+    width: 550px; /* Slightly wider */
+    max-width: 90vw; /* Responsive */
     background-color: #f5f5f5;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
     z-index: 2000;
     overflow: hidden;
+    animation: panel-fade-in 0.3s ease-out;
+}
+
+@keyframes panel-fade-in {
+    from { opacity: 0; transform: translate(-50%, -48%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
 }
 
 .station-panel-header {
@@ -1212,4 +1237,19 @@ button:hover {
 /* Ensure the locomotive control panel has a lower z-index */
 .locomotive-control-panel {
     z-index: 1000;
+}
+
+/* Update the station info section */
+.station-info {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #2c3e50;
+}
+
+.station-info p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
 } 
