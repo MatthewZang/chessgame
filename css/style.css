@@ -123,4 +123,30 @@ button {
 
 .exit-btn:hover {
     background-color: #da190b;
+}
+
+/* Emergency brake button styling */
+.emergency-section .emergency-brake-button,
+#emergency-brake-btn {
+    color: white !important;
+    padding: 15px 40px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #ff0000 !important;  /* Force red color */
+    border: 2px solid #cc0000;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.emergency-section .emergency-brake-button:hover,
+#emergency-brake-btn:hover {
+    background-color: #cc0000 !important;
+}
+
+.emergency-section .emergency-brake-button.pressed,
+#emergency-brake-btn.pressed {
+    background-color: #990000 !important;
+    transform: scale(0.95);
 } 

@@ -1252,4 +1252,30 @@ button:hover {
     margin: 0;
     color: #333;
     line-height: 1.5;
+}
+
+/* Emergency brake button styling */
+.emergency-brake-button {
+    background-color: #ff0000 !important; /* Bright red */
+    color: white;
+    padding: 15px 40px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    border: 2px solid #cc0000;
+}
+
+.emergency-brake-button:hover {
+    background-color: #cc0000 !important; /* Darker red on hover */
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+.emergency-brake-button.pressed {
+    background-color: #990000 !important; /* Even darker red when pressed */
+    transform: scale(0.95);
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.2);
 } 
