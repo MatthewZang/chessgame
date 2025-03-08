@@ -38,4 +38,4 @@ A browser-based chess game implemented in JavaScript.
 - kill the king to win the game
 
 ## playing game
-file:///Users/aircanada/Documents/code/chessgame/train_simulator.html
+https://matthewzang.github.io/chessgame/
