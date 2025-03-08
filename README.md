@@ -39,5 +39,3 @@ A browser-based chess game implemented in JavaScript.
 
 ## playing game
 https://matthewzang.github.io/chessgame/
-# New train sim for fun
-file:///Users/aircanada/Documents/code/chessgame/train_simulator.html
