@@ -31,20 +31,59 @@ body {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20">\
         <!-- Track Base -->\
         <rect x="0" y="0" width="100" height="20" fill="%23555"/>\
-        <!-- Sleepers/Ties -->\
-        <rect x="0" y="8" width="10" height="4" fill="%23654321"/>\
-        <rect x="15" y="8" width="10" height="4" fill="%23654321"/>\
-        <rect x="30" y="8" width="10" height="4" fill="%23654321"/>\
-        <rect x="45" y="8" width="10" height="4" fill="%23654321"/>\
-        <rect x="60" y="8" width="10" height="4" fill="%23654321"/>\
-        <rect x="75" y="8" width="10" height="4" fill="%23654321"/>\
-        <rect x="90" y="8" width="10" height="4" fill="%23654321"/>\
-        <!-- Rails -->\
-        <rect x="0" y="5" width="100" height="2" fill="%23888"/>\
-        <rect x="0" y="13" width="100" height="2" fill="%23888"/>\
+        <!-- Sleepers/Ties with better shading -->\
+        <rect x="0" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="15" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="30" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="45" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="60" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="75" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <rect x="90" y="8" width="10" height="4" fill="%23654321" stroke="%23543210" stroke-width="0.5"/>\
+        <!-- Rails with metallic appearance -->\
+        <rect x="0" y="5" width="100" height="2" fill="%23888" stroke="%23666" stroke-width="0.2"/>\
+        <rect x="0" y="13" width="100" height="2" fill="%23888" stroke="%23666" stroke-width="0.2"/>\
+        <!-- Rail highlights for metallic look -->\
+        <line x1="0" y1="5.5" x2="100" y2="5.5" stroke="%23aaa" stroke-width="0.5"/>\
+        <line x1="0" y1="13.5" x2="100" y2="13.5" stroke="%23aaa" stroke-width="0.5"/>\
+        <!-- Rail joints -->\
+        <rect x="24.5" y="5" width="1" height="2" fill="%23666"/>\
+        <rect x="49.5" y="5" width="1" height="2" fill="%23666"/>\
+        <rect x="74.5" y="5" width="1" height="2" fill="%23666"/>\
+        <rect x="24.5" y="13" width="1" height="2" fill="%23666"/>\
+        <rect x="49.5" y="13" width="1" height="2" fill="%23666"/>\
+        <rect x="74.5" y="13" width="1" height="2" fill="%23666"/>\
+        <!-- Ballast texture suggestion -->\
+        <path d="M0,20 L100,20 L100,16 C95,17 90,16.5 85,17 C80,17.5 75,16 70,16.5 C65,17 60,16.5 55,17 C50,17.5 45,16 40,16.5 C35,17 30,16.5 25,17 C20,17.5 15,16 10,16.5 C5,17 0,16.5 0,16 Z" fill="%23777" opacity="0.3"/>\
     </svg>');
     background-repeat: repeat-x;
     z-index: 1;
+}
+
+#ballast {
+    position: absolute;
+    bottom: 40px;
+    left: -1000px;
+    width: 120000px;
+    height: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30">\
+        <!-- Ballast Base -->\
+        <rect x="0" y="0" width="100" height="30" fill="%23777"/>\
+        <!-- Ballast Texture -->\
+        <rect x="0" y="0" width="100" height="30" fill="url(%23ballastPattern)"/>\
+        <defs>\
+            <pattern id="ballastPattern" patternUnits="userSpaceOnUse" width="10" height="10">\
+                <rect x="0" y="0" width="10" height="10" fill="%23777"/>\
+                <circle cx="2" cy="2" r="1" fill="%23666"/>\
+                <circle cx="7" cy="3" r="1.5" fill="%23666"/>\
+                <circle cx="4" cy="8" r="1.2" fill="%23666"/>\
+                <circle cx="9" cy="7" r="1" fill="%23666"/>\
+            </pattern>\
+        </defs>\
+        <!-- Ballast Shading -->\
+        <path d="M0,0 L100,0 L90,30 L10,30 Z" fill="%23666" opacity="0.2"/>\
+    </svg>');
+    background-repeat: repeat-x;
+    z-index: 0;
 }
 
 #train {

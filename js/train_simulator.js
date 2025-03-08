@@ -1592,4 +1592,28 @@ function applyRockyMountaineerStyle() {
             <circle cx="350" cy="90" r="8" fill="%23222"/>
         </svg>')`;
     });
-} 
+}
+
+// Add this to your initialization function
+function initializeTrack() {
+    const simulatorContainer = document.querySelector('.simulator-container');
+    
+    // Create ballast element if it doesn't exist
+    if (!document.getElementById('ballast')) {
+        const ballastElement = document.createElement('div');
+        ballastElement.id = 'ballast';
+        simulatorContainer.appendChild(ballastElement);
+    }
+    
+    // Make sure the track is above the ballast in the DOM
+    const trackElement = document.getElementById('track');
+    if (trackElement) {
+        simulatorContainer.appendChild(trackElement); // Move to end to ensure it's on top
+    }
+}
+
+// Call this function during your initialization
+document.addEventListener('DOMContentLoaded', function() {
+    initializeTrack();
+    // Your other initialization code...
+}); 
