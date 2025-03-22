@@ -1489,8 +1489,9 @@ function applyRockyMountaineerRearStyle(rearLocomotive) {
     </svg>')`;
 }
 
-// Add this at the beginning of your JavaScript file
-document.addEventListener('DOMContentLoaded', function() {
+// Original initialization code has been moved to the HTML file
+// This function is now called from the HTML after the pay dialog
+function initializeTrainSimulator() {
     // Check if there's a selected train type in localStorage
     const selectedTrain = localStorage.getItem('selectedTrain');
     
@@ -1501,7 +1502,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize the simulator
     initializeSimulation();
-});
+}
 
 // Function to apply Rocky Mountaineer styling
 function applyRockyMountaineerStyle() {
