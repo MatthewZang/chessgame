@@ -113,7 +113,7 @@
                     <div style="background-color: #f8f8f8; border-radius: 6px; padding: 15px; margin-bottom: 20px;">
                         <p style="font-weight: bold; font-size: 18px; margin: 0;">$1.00 for 4 minutes of gameplay</p>
                     </div>
-                    <button id="pay-btn" class="pay-button">Pay $1.00</button>
+                    <button id="pay-btn" class="pay-button">Pay with Stripe</button>
                     <p style="font-size: 12px; color: #666; margin-top: 15px;">
                         Time will begin after payment is processed.
                     </p>
@@ -124,17 +124,24 @@
                 
                 // Add event listener to pay button
                 document.getElementById('pay-btn').addEventListener('click', function() {
-                    // Show payment processing simulation
+                    // Redirect to Stripe payment link
+                    window.open('https://buy.stripe.com/test_bIYcOydmC3rb54AdQQ', '_blank');
+                    
+                    // Show waiting for payment confirmation
                     dialogBox.innerHTML = `
-                        <h2 style="color: #003366; margin-top: 0;">Processing Payment</h2>
+                        <h2 style="color: #003366; margin-top: 0;">Payment Processing</h2>
                         <div style="margin: 30px 0;">
                             <div class="spinner"></div>
                         </div>
-                        <p style="font-size: 16px;">Please wait while we process your payment...</p>
+                        <p style="font-size: 16px; margin-bottom: 20px;">Please complete the payment in the new tab.</p>
+                        <button id="payment-completed-btn" class="pay-button" style="background-color: #003366;">I've Completed Payment</button>
+                        <p style="font-size: 12px; color: #666; margin-top: 15px;">
+                            Click the button above after completing your payment.
+                        </p>
                     `;
                     
-                    // Simulate payment processing (2 seconds)
-                    setTimeout(function() {
+                    // Add event listener to payment completed button
+                    document.getElementById('payment-completed-btn').addEventListener('click', function() {
                         // Show success message
                         dialogBox.innerHTML = `
                             <h2 style="color: #003366; margin-top: 0;">Payment Successful!</h2>
@@ -159,7 +166,7 @@
                             startGameTimer(expirationTime);
                             resolve();
                         });
-                    }, 2000);
+                    });
                 });
             });
         }
@@ -216,7 +223,7 @@
                 <div style="background-color: #f8f8f8; border-radius: 6px; padding: 15px; margin-bottom: 20px;">
                     <p style="font-weight: bold; font-size: 18px; margin: 0;">$1.00 for 4 more minutes of gameplay</p>
                 </div>
-                <button id="pay-again-btn" class="pay-button">Pay $1.00</button>
+                <button id="pay-again-btn" class="pay-button">Pay with Stripe</button>
                 <button id="quit-btn" style="background-color: transparent; color: #666; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; cursor: pointer; width: 100%;">Quit Game</button>
             `;
             
@@ -225,17 +232,24 @@
             
             // Add event listener to pay again button
             document.getElementById('pay-again-btn').addEventListener('click', function() {
-                // Show payment processing simulation
+                // Redirect to Stripe payment link
+                window.open('https://buy.stripe.com/test_bIYcOydmC3rb54AdQQ', '_blank');
+                
+                // Show waiting for payment confirmation
                 dialogBox.innerHTML = `
-                    <h2 style="color: #003366; margin-top: 0;">Processing Payment</h2>
+                    <h2 style="color: #003366; margin-top: 0;">Payment Processing</h2>
                     <div style="margin: 30px 0;">
                         <div class="spinner"></div>
                     </div>
-                    <p style="font-size: 16px;">Please wait while we process your payment...</p>
+                    <p style="font-size: 16px; margin-bottom: 20px;">Please complete the payment in the new tab.</p>
+                    <button id="payment-completed-btn" class="pay-button" style="background-color: #003366;">I've Completed Payment</button>
+                    <p style="font-size: 12px; color: #666; margin-top: 15px;">
+                        Click the button above after completing your payment.
+                    </p>
                 `;
                 
-                // Simulate payment processing (2 seconds)
-                setTimeout(function() {
+                // Add event listener to payment completed button
+                document.getElementById('payment-completed-btn').addEventListener('click', function() {
                     // Show success message
                     dialogBox.innerHTML = `
                         <h2 style="color: #003366; margin-top: 0;">Payment Successful!</h2>
@@ -259,7 +273,7 @@
                         // Start timer to track remaining time
                         startGameTimer(expirationTime);
                     });
-                }, 2000);
+                });
             });
             
             // Add event listener to quit button
